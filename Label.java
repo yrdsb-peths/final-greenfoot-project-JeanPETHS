@@ -38,6 +38,17 @@ public class Label extends Actor
         this.fontSize = fontSize;
         updateImage();
     }
+    
+    /**
+     * Create a new label, initialise it with the needed text, font size, and the fill color 
+     */
+    public Label(String value, int fontSize, Color fillColor)
+    {
+        this.value = value;
+        this.fontSize = fontSize;
+        this.fillColor = fillColor;
+        updateImage();
+    }
 
     /**
      * Sets the value  as text
@@ -58,6 +69,17 @@ public class Label extends Actor
     public void setValue(int value)
     {
         this.value = Integer.toString(value);
+        updateImage();
+    }
+    
+    /**
+     * Sets the font size
+     * 
+     * @param font the font size to be shown
+     */
+    public void setFont(int fontSize)
+    {
+        this.fontSize = fontSize;
         updateImage();
     }
     
