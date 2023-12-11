@@ -1,21 +1,33 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class GameWorld1 here.
+ * This is the 1st-level world.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Jean 
+ * @version Dec 2023
  */
 public class GameWorld1 extends World
 {
+    private final int tileSize = 18;
 
-    /**
-     * Constructor for objects of class GameWorld1.
-     * 
-     */
-    public GameWorld1()
+    public GameWorld1(StartWorld startWorld)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(600, 400, 1); 
+        super(600, 400, 1, true); 
+
+        //Background image
+
+        //Quit label:
+        //instructions Label:
+        prepare();
+    }
+
+    /**
+     * Prepare the world for the start of the program.
+     */
+    private void prepare()
+    {
+        Rock1 rock1 = new Rock1();
+        addObject(rock1,100,83);
     }
 }
