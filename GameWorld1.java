@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class GameWorld1 extends World
 {
-    GreenfootImage environment = new GreenfootImage("background/GameWorld1-Background-transparent.png");
+    GreenfootImage environment = new GreenfootImage("GameWorld1-Background-transparent.png");
     
     private final int tileSize = 18;
 
@@ -33,6 +33,7 @@ public class GameWorld1 extends World
      */
     private void prepare()
     {
+        //Add the huge rock at the top left corner
         Rock1 rock1 = new Rock1();
         addObject(rock1,100,83);
 
@@ -57,6 +58,14 @@ public class GameWorld1 extends World
         addObject(trap2,404,323);
         Trap trap3 = new Trap();
         addObject(trap3,335,300);
+        
+        //Add the hint characters
+        HintCharacter hintCharacter = new HintCharacter();
+        addObject(hintCharacter,36,251);
+        HintCharacter hintCharacter2 = new HintCharacter();
+        addObject(hintCharacter2,291,297);
+        HintCharacter hintCharacter3 = new HintCharacter();
+        addObject(hintCharacter3,429,320);
 
         //Add the flying cloud
         Fly fly = new Fly();
@@ -65,9 +74,27 @@ public class GameWorld1 extends World
         //Add the locked box
         LockedBox lockedBox = new LockedBox();
         addObject(lockedBox,197,204);
-        
+
         //Add the key
         Key key = new Key();
         addObject(key,243,246);
+        //Add the rock under the key
+        Rock rock = new Rock();
+        addObject(rock,key.getX(),263);
+        
+        //Add the flag
+        Flag flag = new Flag();
+        addObject(flag, 522, 200);
+        
+        //Add the snowman
+        Snowman snowman = new Snowman();
+        addObject(snowman,544,207);
+        
+        //Add the diamond
+        Diamond diamond = new Diamond();
+        addObject(diamond,430,256);
+        //Add the shelf under the diamond
+        Shelf shelf = new Shelf();
+        addObject(shelf,diamond.getX(),272);
     }
 }
