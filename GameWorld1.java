@@ -8,93 +8,108 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class GameWorld1 extends World
 {
-    GreenfootImage environment = new GreenfootImage("GameWorld1-Background-transparent.png");
-    
-    private final int tileSize = 18;
+    final private int tileSize = 24;
+    final private int halfSize = tileSize/2;
+    final private int[][] tileMap = {
+            {10,16,10,16,11,10,17,11,11,11,11,11,10,16,11,10,17,10,10,10,10,16,11,17,10},
+            {11,16,10,16,11,10,17,11,11,11,11,11,10,4,5,5,6,10,10,10,10,16,11,17,10},
+            {10,16,10,1,2,2,3,11,15,2,2,2,14,11,11,15,5,5,5,14,10,16,11,17,11},
+            {11,1,2,3,10,11,10,15,3,-1,-1,-1,1,2,5,6,-1,-1,-1,7,14,7,8,9,11},
+            {11,10,10,10,11,10,15,3,-1,-1,-1,-1,-1,31,-1,-1,-1,-1,-1,-1,16,10,10,10,10},
+            {2,2,14,10,10,10,17,-1,-1,-1,37,-1,-1,32,-1,-1,-1,-1,38,-1,7,14,11,10,10},
+            {-1,-1,1,2,2,2,3,-1,-1,-1,-1,-1,36,35,30,29,-1,-1,-1,-1,-1,16,10,15,8},
+            {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,32,-1,-1,-1,-1,-1,-1,-1,7,8,9,-1},
+            {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,27,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+            {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,24,28,26,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+            {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,24,25,26,22,24,25,26,-1,-1,-1,-1,-1,-1,-1,-1},
+            {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,18,19,20,22,21,22,23,-1,-1,-1,-1,-1,-1,-1,-1},
+            {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,18,22,22,18,19,20,-1,-1,-1,-1,-1,-1,-1,-1},
+            {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,18,19,20,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+        };
 
     public GameWorld1(StartWorld startWorld)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(600, 400, 1, true); 
 
-        //Set environment image
-        this.getBackground().drawImage(environment, 0, this.getHeight()-337);
+        //Create all things needed
+        createGround();
+        createElements();
 
-        //Prepare all needed elements to the world
-        prepare();
-        
         //Quit label:
         //instructions Label:
         
     }
 
     /**
-     * Prepare the world for the start of the program.
+     * Create the ground that the character can land on through the integer tile map.
      */
-    private void prepare()
+    public void createGround()
+    {
+        for(int row=0; row<tileMap.length; row++)
+        {
+            for(int col=0; col<tileMap[0].length; col++)
+            {
+                int currentTile = tileMap[row][col];
+                //If the image index is -1, it means no tile at that location.
+                if(currentTile==-1)
+                {
+                    continue;
+                }
+                addObject(new Tile(tileMap[row][col]), col*tileSize + halfSize, 400-(row*tileSize+halfSize));
+            }
+        }
+    }
+
+    /**
+     * Create the necessary elements in the world.
+     */
+    private void createElements()
     {
         //Add the huge rock at the top left corner
-        Rock1 rock1 = new Rock1();
-        addObject(rock1,100,83);
+        addObject(new Rock1(),90,80);
 
         //Add the place where the character starts
         RightArrow rightArrow = new RightArrow();
-        addObject(rightArrow,151,231);
+        addObject(rightArrow,6*tileSize+halfSize,400-7*tileSize-9);
 
         //Add the character
         GreenCharacter greenCharacter = new GreenCharacter();
-        addObject(greenCharacter,127,227);
+        addObject(greenCharacter,5*tileSize+halfSize,400-7*tileSize-halfSize);
 
         //Add the ladder
         LadderDown ladderDown = new LadderDown();
-        addObject(ladderDown,476,258);
+        addObject(ladderDown,600-4*tileSize-halfSize,400-6*tileSize-9);
         LadderUp ladderUp = new LadderUp();
-        addObject(ladderUp,ladderDown.getX(),207);
+        addObject(ladderUp,ladderDown.getX(),ladderDown.getY()-54);
 
         //Add the trap        
-        Trap trap = new Trap();
-        addObject(trap,266,323);
-        Trap trap2 = new Trap();
-        addObject(trap2,404,323);
-        Trap trap3 = new Trap();
-        addObject(trap3,335,300);
-        
+        addObject(new Trap(),11*tileSize+halfSize,400-3*tileSize-9);
+        addObject(new Trap(),14*tileSize+halfSize,400-4*tileSize-9);
+        addObject(new Trap(),18*tileSize+halfSize,400-3*tileSize-9);
+
         //Add the hint characters
-        HintCharacter hintCharacter = new HintCharacter();
-        addObject(hintCharacter,36,251);
-        HintCharacter hintCharacter2 = new HintCharacter();
-        addObject(hintCharacter2,291,297);
-        HintCharacter hintCharacter3 = new HintCharacter();
-        addObject(hintCharacter3,429,320);
+        addObject(new HintCharacter(),tileSize+halfSize,400-6*tileSize-12);
+        addObject(new HintCharacter(),12*tileSize+halfSize,400-4*tileSize-9);
+        addObject(new HintCharacter(),16*tileSize+halfSize,400-3*tileSize-9);
 
         //Add the flying cloud
-        Fly fly = new Fly();
-        addObject(fly,403,200);
+        addObject(new Fly(),17*tileSize+halfSize,200);
 
         //Add the locked box
-        LockedBox lockedBox = new LockedBox();
-        addObject(lockedBox,197,204);
+        addObject(new LockedBox(),8*tileSize+halfSize,400-8*tileSize-9);
 
         //Add the key
         Key key = new Key();
-        addObject(key,243,246);
-        //Add the rock under the key
-        Rock rock = new Rock();
-        addObject(rock,key.getX(),263);
-        
-        //Add the flag
-        Flag flag = new Flag();
-        addObject(flag, 522, 200);
-        
-        //Add the snowman
-        Snowman snowman = new Snowman();
-        addObject(snowman,544,207);
-        
+        addObject(key,10*tileSize+halfSize,400-6*tileSize-9);
+
         //Add the diamond
-        Diamond diamond = new Diamond();
-        addObject(diamond,430,256);
-        //Add the shelf under the diamond
-        Shelf shelf = new Shelf();
-        addObject(shelf,diamond.getX(),272);
+        addObject(new Diamond(),18*tileSize+halfSize,400-6*tileSize-9);
+
+        //Add the flag
+        addObject(new Flag(), 22*tileSize+halfSize, 400-8*tileSize-15);
+
+        //Add the snowman
+        addObject(new Snowman(),23*tileSize+halfSize,400-8*tileSize-9);
     }
 }
