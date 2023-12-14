@@ -12,14 +12,6 @@ public class Flag extends Actor
     SimpleTimer timer;
     int flagIndex = 0;
     
-    /*public void addedToWorld()
-    {
-        if(this.getWorld() instanceof GameWorld1)
-        {
-            gameWorld1 = (GameWorld1)this.getWorld();
-        }
-    }*/
-    
     public Flag()
     {
         timer = new SimpleTimer();
