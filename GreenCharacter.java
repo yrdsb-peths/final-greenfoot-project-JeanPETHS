@@ -13,8 +13,60 @@ public class GreenCharacter extends Actor
     //Check the direction it is facing
     boolean isFacingRight = true;
     
+    //Data to make it fall or jump
+    boolean isFalling = false;
+    boolean isJumping = false;
+    static final private int initialSpeed = 10;
+    static final private int gravity = 2;
+    int velocity = 0; 
+    
     //Store the y value of the nearest tile under the character
     int y;
+    
+    public void act()
+    {
+        //move left & right
+        if(Greenfoot.isKeyDown("a"))
+        {
+            //if no wall on the left: move
+            isFacingRight = false;
+            if(!isAgainstWall())
+            {
+                move(-1);
+            }
+        }
+        else if(Greenfoot.isKeyDown("d"))
+        {
+            //if no wall on the right: move
+            isFacingRight = true;
+            if(!isAgainstWall())
+            {
+                move(1);
+            }
+        }
+        
+        //Check if the character can jump or fall
+        if(Greenfoot.isKeyDown("w") && isOnGround() && !isFalling && !isJumping)
+        {
+            isJumping = true;
+            velocity = initialSpeed;
+        }
+        else if(!isOnGround() && !isJumping)
+        {
+            isFalling = true;
+        }
+        
+        //Make the character jump
+        if(isJumping) {
+            jump();
+        }
+        
+        //Make the character fall
+        if(isFalling) {
+            fall();
+        }
+    }
+    
     /**
      * Check if the character is on the ground.
      */
@@ -59,6 +111,33 @@ public class GreenCharacter extends Actor
         }
     }
     
+    /**
+     * Make the object fall if it is not on the ground.
+     */
+    public void fall()
     {
+        setLocation(getX(), getY() + velocity);
+        velocity += gravity;
+        //If it reaches the ground, stop falling, and reset its y location.
+        if(isOnGround()) {
+            velocity = 0;
+            isFalling = false;
+            setLocation(getX(), y-24);
+        }
+    }
+    
+    /**
+     * Make the object jump.
+     */
+    public void jump()
+    {
+        setLocation(getX(), getY()-velocity);
+        velocity -= gravity;
+        //If it reaches the ground, stop jumping, and reset its y location.
+        if(isOnGround()) {
+            velocity = 0;
+            isJumping = false;
+            setLocation(getX(), y-24);
+        }
     }
 }
