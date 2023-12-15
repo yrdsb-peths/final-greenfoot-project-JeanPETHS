@@ -1,19 +1,64 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class GreenCharacter here.
+ * This is the green character the user uses to play.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Jean 
+ * @version Dec 2023
  */
 public class GreenCharacter extends Actor
 {
+    final static private int tileSize = 24;
+    
+    //Check the direction it is facing
+    boolean isFacingRight = true;
+    
+    //Store the y value of the nearest tile under the character
+    int y;
     /**
-     * Act - do whatever the GreenCharacter wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * Check if the character is on the ground.
      */
-    public void act()
+    public boolean isOnGround()
+    {   
+        //If there is tile under the character from left 9 to right 9 cells, return true.
+        for(int i=-9; i<=9; i++)
+        {
+            if(getOneObjectAtOffset(i, 12, Tile.class)!=null)
+            {
+                //Get the y value of the tile under it & store it -- for later character location adjustment.
+                y = getOneObjectAtOffset(i, 12, Tile.class).getY();
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * Check if the character is against the wall in a specific direction.
+     */
+    public boolean isAgainstWall()
     {
-        // Add your action code here.
+        //Check according to the direction the character is facing.
+        if(isFacingRight)
+        {
+            //If the character is facing right, check if there is a wall on the right
+            if(getOneObjectAtOffset(12, 0, Tile.class)!=null)
+            {
+                return true;
+            }
+            return false;
+        }
+        else
+        {
+            //If the character is facing left, check if there is a wall on the left
+            if(getOneObjectAtOffset(-12, 0, Tile.class)!=null)
+            {
+                return true;
+            }
+            return false;
+        }
+    }
+    
+    {
     }
 }
