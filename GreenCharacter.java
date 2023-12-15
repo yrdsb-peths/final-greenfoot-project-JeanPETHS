@@ -15,6 +15,31 @@ public class GreenCharacter extends Actor
     
     //Store the y value of the nearest tile under the character
     int y;
+    
+    public void act()
+    {
+        //move left & right
+        if(Greenfoot.isKeyDown("a"))
+        {
+            //if no wall on the left: move
+            isFacingRight = false;
+            if(!isAgainstWall())
+            {
+                move(-1);
+            }
+        }
+        else if(Greenfoot.isKeyDown("d"))
+        {
+            //if no wall on the right: move
+            isFacingRight = true;
+            if(!isAgainstWall())
+            {
+                move(1);
+            }
+        }
+        
+    }
+    
     /**
      * Check if the character is on the ground.
      */
