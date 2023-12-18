@@ -21,7 +21,10 @@ public class GreenCharacter extends Actor
     int velocity = 0; 
     
     //Store the y value of the nearest tile under the character
-    int y;
+    int yBelow;
+    
+    //Store the y value of the tile above the character to block it from bumping into the tile
+    int yAbove;
     
     public void act()
     {
@@ -78,7 +81,25 @@ public class GreenCharacter extends Actor
             if(getOneObjectAtOffset(i, 12, Tile.class)!=null)
             {
                 //Get the y value of the tile under it & store it -- for later character location adjustment.
-                y = getOneObjectAtOffset(i, 12, Tile.class).getY();
+                yBelow = getOneObjectAtOffset(i, 12, Tile.class).getY();
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * Check if there is tiles above the character to block the character from bumping into it.
+     */
+    public boolean isBlockedAbove()
+    {   
+        //If there is tile above the character from left 9 to right 9 cells, return true.
+        for(int i=-9; i<=9; i++)
+        {
+            if(getOneObjectAtOffset(i, -20, Tile.class)!=null)
+            {
+                //Get the y value of the tile above it & store it -- for later character jumping adjustment.
+                yAbove = getOneObjectAtOffset(i, -20, Tile.class).getY();
                 return true;
             }
         }
@@ -122,7 +143,7 @@ public class GreenCharacter extends Actor
         if(isOnGround()) {
             velocity = 0;
             isFalling = false;
-            setLocation(getX(), y-24);
+            setLocation(getX(), yBelow-24);
         }
     }
     
@@ -131,13 +152,26 @@ public class GreenCharacter extends Actor
      */
     public void jump()
     {
+        //If there is tiles above the character, stop jumping, start falling.
+        if(isBlockedAbove())
+        {
+            //If the character will jump above the tile, set the location to maximum below the tile, and start to fall.
+            if((getY()-velocity) < (yAbove+24))
+            {
+                setLocation(getX(), yAbove+24);
+                velocity=0;
+                isFalling = true;
+                isJumping = false;
+            }
+        }
+        
         setLocation(getX(), getY()-velocity);
-        velocity -= gravity;
+        velocity -= gravity;       
         //If it reaches the ground, stop jumping, and reset its y location.
         if(isOnGround()) {
             velocity = 0;
             isJumping = false;
-            setLocation(getX(), y-24);
+            setLocation(getX(), yBelow-24);
         }
     }
 }
