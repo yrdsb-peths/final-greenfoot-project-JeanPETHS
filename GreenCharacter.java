@@ -86,6 +86,10 @@ public class GreenCharacter extends Actor
         if(isFalling) {
             fall();
         }
+        if(isTouching(Flag.class))
+        {
+            gameWorld1.gameOver();
+        }
     }
     
     public void addedToWorld(World world)
