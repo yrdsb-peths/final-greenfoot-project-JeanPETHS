@@ -8,6 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class HintCharacter extends Tile
 {
+    GameWorld1 gameWorld1;
     SimpleTimer timer = new SimpleTimer();
     int hintIndex = 0;
     
@@ -19,6 +20,14 @@ public class HintCharacter extends Tile
     public void act()
     {
         animateCharacter();
+    }
+    
+    public void addedToWorld(World world)
+    {
+        if(world instanceof GameWorld1)
+        {
+            gameWorld1 = (GameWorld1)world;
+        }
     }
     
     public void animateCharacter()

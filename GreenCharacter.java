@@ -10,6 +10,8 @@ public class GreenCharacter extends Actor
 {
     final static private int tileSize = 24;
     
+    GameWorld1 gameWorld1;
+    
     //Check the direction it is facing
     boolean isFacingRight = true;
         
@@ -83,6 +85,14 @@ public class GreenCharacter extends Actor
         //Make the character fall
         if(isFalling) {
             fall();
+        }
+    }
+    
+    public void addedToWorld(World world)
+    {
+        if(world instanceof GameWorld1)
+        {
+            gameWorld1 = (GameWorld1)world;
         }
     }
     

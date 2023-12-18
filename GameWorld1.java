@@ -8,6 +8,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class GameWorld1 extends World
 {
+    boolean gameIsOver = false;
+    
     final private int tileSize = 24;
     final private int halfSize = tileSize/2;
     final private int[][] tileMap = {
@@ -27,6 +29,8 @@ public class GameWorld1 extends World
             {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,18,19,20,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
         };
 
+    Label gameOver;
+    
     public GameWorld1(StartWorld startWorld)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
@@ -39,6 +43,16 @@ public class GameWorld1 extends World
         //Quit label:
         //instructions Label:
         
+    }
+    
+    /**
+     * To end the current game world.
+     */
+    public void gameOver()
+    {
+        gameIsOver = true;
+        gameOver = new Label("Game Over", 40);
+        addObject(gameOver, getWidth()/2, getHeight()/2);
     }
 
     /**
