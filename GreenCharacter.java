@@ -12,7 +12,7 @@ public class GreenCharacter extends Actor
     
     //Check the direction it is facing
     boolean isFacingRight = true;
-    
+        
     //Data to make it fall or jump
     boolean isFalling = false;
     boolean isJumping = false;
@@ -26,11 +26,15 @@ public class GreenCharacter extends Actor
     //Store the y value of the tile above the character to block it from bumping into the tile
     int yAbove;
     
+    SimpleTimer timer = new SimpleTimer();
+    int imageIndex = 0;
+    
     public void act()
     {
         //move left & right
         if(Greenfoot.isKeyDown("a"))
         {
+            animateCharacter();
             //if no wall on the left: move
             isFacingRight = false;
             if(!isAgainstWall())
@@ -40,12 +44,18 @@ public class GreenCharacter extends Actor
         }
         else if(Greenfoot.isKeyDown("d"))
         {
+            animateCharacter();
             //if no wall on the right: move
             isFacingRight = true;
             if(!isAgainstWall())
             {
                 move(1);
             }
+        }
+        else
+        {
+            //If is not moving left or right, set the image to "standing".
+            setImage("green-character-0.png");
         }
         
         //Check if the character can jump or fall
@@ -68,6 +78,25 @@ public class GreenCharacter extends Actor
         if(isFalling) {
             fall();
         }
+    }
+    
+    /**
+     * Animate the character.
+     */
+    public void animateCharacter()
+    {
+        //If the time is too short, do not animate.
+        if(timer.millisElapsed() < 100)
+        {
+            return;
+        }
+        
+        timer.mark();
+        
+        //Set the image
+        GreenfootImage current = new GreenfootImage("green-character-" + imageIndex + ".png");        
+        setImage(current);
+        imageIndex = (imageIndex + 1) % 2;
     }
     
     /**
