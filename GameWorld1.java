@@ -89,15 +89,15 @@ public class GameWorld1 extends World
         addObject(new Trap(),18*tileSize+halfSize,400-3*tileSize-9);
 
         //Add the hint characters
-        addObject(new HintCharacter(),tileSize+halfSize,400-6*tileSize-12);
-        addObject(new HintCharacter(),12*tileSize+halfSize,400-4*tileSize-9);
-        addObject(new HintCharacter(),16*tileSize+halfSize,400-3*tileSize-9);
+        addObject(new HintCharacter(),tileSize+halfSize,400-6*tileSize-halfSize);
+        addObject(new HintCharacter(),12*tileSize+halfSize,400-4*tileSize-halfSize);
+        addObject(new HintCharacter(),16*tileSize+halfSize,400-3*tileSize-halfSize);
 
         //Add the flying cloud
         addObject(new Fly(),17*tileSize+halfSize,200);
 
-        //Add the locked box
-        addObject(new LockedBox(),8*tileSize+halfSize,400-8*tileSize-9);
+        //Add the box
+        addObject(new Box(),8*tileSize+halfSize,400-8*tileSize-halfSize);
 
         //Add the key
         Key key = new Key();

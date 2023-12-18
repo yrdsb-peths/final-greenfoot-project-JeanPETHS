@@ -8,6 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Tile extends Actor
 {
+    
     /**
      * Pass in the image index to create tiles.
      */
@@ -18,8 +19,12 @@ public class Tile extends Actor
         setImage(temp);
     }
     
-    public void act()
+    /**
+     * Pass in the image to create tiles.
+     */
+    public Tile(GreenfootImage image)
     {
-        
+        image.scale(24,24);
+        setImage(image);
     }
 }
