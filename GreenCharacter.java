@@ -55,7 +55,13 @@ public class GreenCharacter extends Actor
         else
         {
             //If is not moving left or right, set the image to "standing".
-            setImage("green-character-0.png");
+            GreenfootImage standing = new GreenfootImage("green-character-0.png");
+            //Set its image based on which direction it is facing.
+            if(!isFacingRight)
+            {
+                standing.mirrorHorizontally();
+            }
+            setImage(standing);
         }
         
         //Check if the character can jump or fall
@@ -94,7 +100,11 @@ public class GreenCharacter extends Actor
         timer.mark();
         
         //Set the image
-        GreenfootImage current = new GreenfootImage("green-character-" + imageIndex + ".png");        
+        GreenfootImage current = new GreenfootImage("green-character-" + imageIndex + ".png");
+        if(!isFacingRight)
+        {
+            current.mirrorHorizontally();
+        }
         setImage(current);
         imageIndex = (imageIndex + 1) % 2;
     }
