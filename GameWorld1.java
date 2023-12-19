@@ -120,9 +120,13 @@ public class GameWorld1 extends World
 
         //Add the flying cloud
         addObject(new Fly(),17*tileSize+halfSize,200);
-
+        
         //Add the box
-        addObject(new Box(),8*tileSize+halfSize,400-8*tileSize-halfSize);
+        Box box = new Box();
+        addObject(box,8*tileSize+halfSize,400-8*tileSize-halfSize);
+        
+        //Add the switch
+        addObject(new Switch(),box.getX(),box.getY()-21);        
 
         //Add the key
         Key key = new Key();
