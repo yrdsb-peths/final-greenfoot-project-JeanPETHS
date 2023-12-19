@@ -10,7 +10,15 @@ public class GreenCharacter extends Actor
 {
     final static private int tileSize = 24;
     
+    //Set the HP value for the character
     GameWorld1 gameWorld1;
+    HealthValue health;
+    //Initial value is 6
+    int hp = 6;
+    //Keet track of the time, if too small, do not reduce HP.
+    SimpleTimer timer1 = new SimpleTimer();
+    //If is the first time it touches the trap, reduce HP immediately.
+    boolean isFirstTouchingTrap = true;
     
     //Check the direction it is facing
     boolean isFacingRight = true;
@@ -28,7 +36,8 @@ public class GreenCharacter extends Actor
     //Store the y value of the tile above the character to block it from bumping into the tile
     int yAbove;
     
-    SimpleTimer timer = new SimpleTimer();
+    //For its animation
+    SimpleTimer timer2 = new SimpleTimer();
     int imageIndex = 0;
     
     public void act()
@@ -86,6 +95,27 @@ public class GreenCharacter extends Actor
         if(isFalling) {
             fall();
         }
+        
+        //Reduce HP if game is on & it touches traps, and is first touching or is staying on it for more than 0.5s.
+        if(!gameWorld1.gameIsOver && isTouching(Trap.class) && (isFirstTouchingTrap || timer2.millisElapsed()>500))
+        {
+            isFirstTouchingTrap = false;
+            timer2.mark();
+            hp--;
+            //Set the image of the health value based on HP
+            HealthValue.setHealthValue(hp);
+            if(hp==0)
+            {
+                gameWorld1.gameOver();
+            }
+        }
+        //If leave the trap, next touch counts as the first touch.
+        if(!isTouching(Trap.class))
+        {
+            isFirstTouchingTrap = true;
+        }
+        
+        //If touches the flag, user wins & game over.
         if(isTouching(Flag.class))
         {
             gameWorld1.gameOver();
@@ -106,12 +136,12 @@ public class GreenCharacter extends Actor
     public void animateCharacter()
     {
         //If the time is too short, do not animate.
-        if(timer.millisElapsed() < 100)
+        if(timer2.millisElapsed() < 100)
         {
             return;
         }
         
-        timer.mark();
+        timer2.mark();
         
         //Set the image
         GreenfootImage current = new GreenfootImage("green-character-" + imageIndex + ".png");
