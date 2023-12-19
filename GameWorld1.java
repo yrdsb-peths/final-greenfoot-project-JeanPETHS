@@ -94,13 +94,13 @@ public class GameWorld1 extends World
         
         //Add the health value
         Label hp = new Label("HP: ", 20);
-        HealthValue health0 = new HealthValue(0);
-        HealthValue health1 = new HealthValue(0);
-        HealthValue health2 = new HealthValue(0);
-        addObject(health0, 575, 23);
-        addObject(health1, 555, 23);
-        addObject(health2, 535, 23);
+        HealthValue health0 = new HealthValue();
+        HealthValue health1 = new HealthValue();
+        HealthValue health2 = new HealthValue();
         addObject(hp, 507, 23);
+        addObject(health0, 535, 23);
+        addObject(health1, 555, 23);
+        addObject(health2, 575, 23);
         
         //Add the ladder
         LadderDown ladderDown = new LadderDown();
