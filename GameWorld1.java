@@ -91,7 +91,17 @@ public class GameWorld1 extends World
         //Add the character
         GreenCharacter greenCharacter = new GreenCharacter();
         addObject(greenCharacter,5*tileSize+halfSize,400-7*tileSize-halfSize);
-
+        
+        //Add the health value
+        Label hp = new Label("HP: ", 20);
+        HealthValue health0 = new HealthValue(0);
+        HealthValue health1 = new HealthValue(0);
+        HealthValue health2 = new HealthValue(0);
+        addObject(health0, 575, 23);
+        addObject(health1, 555, 23);
+        addObject(health2, 535, 23);
+        addObject(hp, 507, 23);
+        
         //Add the ladder
         LadderDown ladderDown = new LadderDown();
         addObject(ladderDown,600-4*tileSize-halfSize,400-6*tileSize-9);
