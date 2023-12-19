@@ -8,6 +8,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class GameWorld1 extends World
 {
+    boolean gameIsOver = false;
+    
     final private int tileSize = 24;
     final private int halfSize = tileSize/2;
     final private int[][] tileMap = {
@@ -27,6 +29,8 @@ public class GameWorld1 extends World
             {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,18,19,20,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
         };
 
+    Label gameOver;
+    
     public GameWorld1(StartWorld startWorld)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
@@ -39,6 +43,17 @@ public class GameWorld1 extends World
         //Quit label:
         //instructions Label:
         
+    }
+    
+    //<!--Developing Feature--!>
+    /**
+     * To end the current game world.
+     */
+    public void gameOver()
+    {
+        gameIsOver = true;
+        gameOver = new Label("Game Over", 40);
+        addObject(gameOver, getWidth()/2, getHeight()/2);
     }
 
     /**
@@ -76,7 +91,17 @@ public class GameWorld1 extends World
         //Add the character
         GreenCharacter greenCharacter = new GreenCharacter();
         addObject(greenCharacter,5*tileSize+halfSize,400-7*tileSize-halfSize);
-
+        
+        //Add the health value
+        Label hp = new Label("HP: ", 20);
+        HealthValue health0 = new HealthValue();
+        HealthValue health1 = new HealthValue();
+        HealthValue health2 = new HealthValue();
+        addObject(hp, 507, 23);
+        addObject(health0, 535, 23);
+        addObject(health1, 555, 23);
+        addObject(health2, 575, 23);
+        
         //Add the ladder
         LadderDown ladderDown = new LadderDown();
         addObject(ladderDown,600-4*tileSize-halfSize,400-6*tileSize-9);
@@ -89,15 +114,15 @@ public class GameWorld1 extends World
         addObject(new Trap(),18*tileSize+halfSize,400-3*tileSize-9);
 
         //Add the hint characters
-        addObject(new HintCharacter(),tileSize+halfSize,400-6*tileSize-12);
-        addObject(new HintCharacter(),12*tileSize+halfSize,400-4*tileSize-9);
-        addObject(new HintCharacter(),16*tileSize+halfSize,400-3*tileSize-9);
+        addObject(new HintCharacter(),tileSize+halfSize,400-6*tileSize-halfSize);
+        addObject(new HintCharacter(),12*tileSize+halfSize,400-4*tileSize-halfSize);
+        addObject(new HintCharacter(),16*tileSize+halfSize,400-3*tileSize-halfSize);
 
         //Add the flying cloud
         addObject(new Fly(),17*tileSize+halfSize,200);
 
-        //Add the locked box
-        addObject(new LockedBox(),8*tileSize+halfSize,400-8*tileSize-9);
+        //Add the box
+        addObject(new Box(),8*tileSize+halfSize,400-8*tileSize-halfSize);
 
         //Add the key
         Key key = new Key();

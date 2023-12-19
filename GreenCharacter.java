@@ -10,9 +10,19 @@ public class GreenCharacter extends Actor
 {
     final static private int tileSize = 24;
     
+    //Set the HP value for the character
+    GameWorld1 gameWorld1;
+    HealthValue health;
+    //Initial value is 6
+    int hp = 6;
+    //Keet track of the time, if too small, do not reduce HP.
+    SimpleTimer timer1 = new SimpleTimer();
+    //If is the first time it touches the trap, reduce HP immediately.
+    boolean isFirstTouchingTrap = true;
+    
     //Check the direction it is facing
     boolean isFacingRight = true;
-    
+        
     //Data to make it fall or jump
     boolean isFalling = false;
     boolean isJumping = false;
@@ -21,13 +31,21 @@ public class GreenCharacter extends Actor
     int velocity = 0; 
     
     //Store the y value of the nearest tile under the character
-    int y;
+    int yBelow;
+    
+    //Store the y value of the tile above the character to block it from bumping into the tile
+    int yAbove;
+    
+    //For its animation
+    SimpleTimer timer2 = new SimpleTimer();
+    int imageIndex = 0;
     
     public void act()
     {
         //move left & right
         if(Greenfoot.isKeyDown("a"))
         {
+            animateCharacter();
             //if no wall on the left: move
             isFacingRight = false;
             if(!isAgainstWall())
@@ -37,12 +55,24 @@ public class GreenCharacter extends Actor
         }
         else if(Greenfoot.isKeyDown("d"))
         {
+            animateCharacter();
             //if no wall on the right: move
             isFacingRight = true;
             if(!isAgainstWall())
             {
                 move(1);
             }
+        }
+        else
+        {
+            //If is not moving left or right, set the image to "standing".
+            GreenfootImage standing = new GreenfootImage("green-character-0.png");
+            //Set its image based on which direction it is facing.
+            if(!isFacingRight)
+            {
+                standing.mirrorHorizontally();
+            }
+            setImage(standing);
         }
         
         //Check if the character can jump or fall
@@ -65,6 +95,62 @@ public class GreenCharacter extends Actor
         if(isFalling) {
             fall();
         }
+        
+        //Reduce HP if game is on & it touches traps, and is first touching or is staying on it for more than 0.5s.
+        if(!gameWorld1.gameIsOver && isTouching(Trap.class) && (isFirstTouchingTrap || timer2.millisElapsed()>500))
+        {
+            isFirstTouchingTrap = false;
+            timer2.mark();
+            hp--;
+            //Set the image of the health value based on HP
+            HealthValue.setHealthValue(hp);
+            if(hp==0)
+            {
+                gameWorld1.gameOver();
+            }
+        }
+        //If leave the trap, next touch counts as the first touch.
+        if(!isTouching(Trap.class))
+        {
+            isFirstTouchingTrap = true;
+        }
+        
+        //If touches the flag, user wins & game over.
+        if(isTouching(Flag.class))
+        {
+            gameWorld1.gameOver();
+        }
+    }
+    
+    public void addedToWorld(World world)
+    {
+        if(world instanceof GameWorld1)
+        {
+            gameWorld1 = (GameWorld1)world;
+        }
+    }
+    
+    /**
+     * Animate the character.
+     */
+    public void animateCharacter()
+    {
+        //If the time is too short, do not animate.
+        if(timer2.millisElapsed() < 100)
+        {
+            return;
+        }
+        
+        timer2.mark();
+        
+        //Set the image
+        GreenfootImage current = new GreenfootImage("green-character-" + imageIndex + ".png");
+        if(!isFacingRight)
+        {
+            current.mirrorHorizontally();
+        }
+        setImage(current);
+        imageIndex = (imageIndex + 1) % 2;
     }
     
     /**
@@ -78,7 +164,25 @@ public class GreenCharacter extends Actor
             if(getOneObjectAtOffset(i, 12, Tile.class)!=null)
             {
                 //Get the y value of the tile under it & store it -- for later character location adjustment.
-                y = getOneObjectAtOffset(i, 12, Tile.class).getY();
+                yBelow = getOneObjectAtOffset(i, 12, Tile.class).getY();
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * Check if there is tiles above the character to block the character from bumping into it.
+     */
+    public boolean isBlockedAbove()
+    {   
+        //If there is tile above the character from left 9 to right 9 cells, return true.
+        for(int i=-9; i<=9; i++)
+        {
+            if(getOneObjectAtOffset(i, -20, Tile.class)!=null)
+            {
+                //Get the y value of the tile above it & store it -- for later character jumping adjustment.
+                yAbove = getOneObjectAtOffset(i, -20, Tile.class).getY();
                 return true;
             }
         }
@@ -122,7 +226,7 @@ public class GreenCharacter extends Actor
         if(isOnGround()) {
             velocity = 0;
             isFalling = false;
-            setLocation(getX(), y-24);
+            setLocation(getX(), yBelow-24);
         }
     }
     
@@ -131,13 +235,26 @@ public class GreenCharacter extends Actor
      */
     public void jump()
     {
+        //If there is tiles above the character, stop jumping, start falling.
+        if(isBlockedAbove())
+        {
+            //If the character will jump above the tile, set the location to maximum below the tile, and start to fall.
+            if((getY()-velocity) < (yAbove+24))
+            {
+                setLocation(getX(), yAbove+24);
+                velocity=0;
+                isFalling = true;
+                isJumping = false;
+            }
+        }
+        
         setLocation(getX(), getY()-velocity);
-        velocity -= gravity;
+        velocity -= gravity;       
         //If it reaches the ground, stop jumping, and reset its y location.
         if(isOnGround()) {
             velocity = 0;
             isJumping = false;
-            setLocation(getX(), y-24);
+            setLocation(getX(), yBelow-24);
         }
     }
 }
