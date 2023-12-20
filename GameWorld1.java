@@ -153,4 +153,26 @@ public class GameWorld1 extends World
         //Add the snowman
         addObject(new Snowman(),23*tileSize+halfSize,400-8*tileSize-9);
     }
+    
+    /**
+     * Update the number of keys that the user got and are left unused in the current world, and update the label.
+     */
+    public void updateKey(int changeInKey)
+    {
+        //Update the number of keys remained
+        numOfKeys += changeInKey;
+        
+        //Check if there is still keys remained
+        if(numOfKeys>0)
+        {
+            hasKey = true;
+        }
+        else
+        {
+            hasKey = false;
+        }
+        
+        //Update the label
+        numKeys.setValue(numOfKeys);
+    }
 }
