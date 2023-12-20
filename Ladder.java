@@ -8,6 +8,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Ladder extends Actor
 {
+    /**
+     * Set the ladder image based on the type that gets passed into this constructor.
+     */
     public Ladder(int type)
     {
         GreenfootImage ladder = new GreenfootImage("ladder" + type + ".png");
