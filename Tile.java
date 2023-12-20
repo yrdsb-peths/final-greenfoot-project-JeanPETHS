@@ -27,4 +27,13 @@ public class Tile extends Actor
         image.scale(24,24);
         setImage(image);
     }
+    
+    /**
+     * Pass in the image to set image.
+     */
+    public void setTileImage(GreenfootImage image)
+    {
+        image.scale(24,24);
+        setImage(image);
+    }
 }

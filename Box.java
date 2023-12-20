@@ -12,4 +12,9 @@ public class Box extends Tile
     {
         super(new GreenfootImage("locked-box.png"));
     }
+    
+    public void unlock()
+    {
+        super.setTileImage(new GreenfootImage("unlocked-box.png"));
+    }
 }

@@ -26,7 +26,7 @@ public class GreenCharacter extends Actor
     //Data to make it fall or jump
     boolean isFalling = false;
     boolean isJumping = false;
-    static final private int initialSpeed = 10;
+    static final private int initialSpeed = 12;
     static final private int gravity = 2;
     int velocity = 0; 
     
@@ -39,7 +39,7 @@ public class GreenCharacter extends Actor
     //For its animation
     SimpleTimer timer2 = new SimpleTimer();
     int imageIndex = 0;
-    
+        
     public void act()
     {
         //move left & right
@@ -113,6 +113,13 @@ public class GreenCharacter extends Actor
         if(!isTouching(Trap.class))
         {
             isFirstTouchingTrap = true;
+        }
+        
+        //If touch the key, take it, and remove it.
+        if(isTouching(Key.class))
+        {
+            gameWorld1.updateKey(1);
+            removeTouching(Key.class);
         }
         
         //If touches the flag, user wins & game over.
