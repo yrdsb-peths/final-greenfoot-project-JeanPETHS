@@ -29,6 +29,11 @@ public class GameWorld1 extends World
             {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,18,19,20,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
         };
 
+    //Store key data
+    boolean hasKey = false;
+    private int numOfKeys = 0;
+    private Label numKeys;
+    
     Label gameOver;
     
     public GameWorld1(StartWorld startWorld)
@@ -93,7 +98,7 @@ public class GameWorld1 extends World
         addObject(greenCharacter,5*tileSize+halfSize,400-7*tileSize-halfSize);
         
         //Add the health value
-        Label hp = new Label("HP: ", 20);
+        Label hp = new Label("HP : ", 20);
         HealthValue health0 = new HealthValue();
         HealthValue health1 = new HealthValue();
         HealthValue health2 = new HealthValue();
@@ -101,6 +106,11 @@ public class GameWorld1 extends World
         addObject(health0, 535, 23);
         addObject(health1, 555, 23);
         addObject(health2, 575, 23);
+        
+        //Add the key label
+        getBackground().drawImage(new GreenfootImage("key.png"), 493, 37);
+        numKeys = new Label(numOfKeys, 20);
+        addObject(numKeys, 520, 45);
         
         //Add the ladder
         LadderDown ladderDown = new LadderDown();
@@ -122,11 +132,13 @@ public class GameWorld1 extends World
         addObject(new Fly(),17*tileSize+halfSize,200);
         
         //Add the box
-        Box box = new Box();
-        addObject(box,8*tileSize+halfSize,400-8*tileSize-halfSize);
+        Box box1 = new Box();
+        addObject(box1,8*tileSize+halfSize,400-8*tileSize-halfSize);
         
         //Add the switch
-        addObject(new Switch(),box.getX(),box.getY()-21);        
+        Switch switch1 = new Switch();
+        addObject(switch1, box1.getX(), box1.getY()-21);
+        switch1.boxConnected = box1;
 
         //Add the key
         Key key = new Key();
