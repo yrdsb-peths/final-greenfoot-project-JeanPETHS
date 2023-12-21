@@ -26,6 +26,6 @@ public class Box extends Tile
     public void unlock()
     {
         super.setTileImage(new GreenfootImage("unlocked-box.png"));
-        gameWorld1.addObject(new Tile(37), 9*24+12, 400-9*24-12);
+        gameWorld1.addObject(new Ladder(1), 20*24+12, 400-6*24-12);
     }
 }

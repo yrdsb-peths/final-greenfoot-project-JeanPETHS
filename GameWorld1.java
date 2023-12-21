@@ -96,7 +96,7 @@ public class GameWorld1 extends World
         //Add the character
         GreenCharacter greenCharacter = new GreenCharacter();
         addObject(greenCharacter,5*tileSize+halfSize,400-7*tileSize-halfSize);
-        setPaintOrder(GreenCharacter.class);
+        setPaintOrder(Switch.class, GreenCharacter.class);
         
         //Add the health value
         Label hp = new Label("HP : ", 20);
@@ -114,10 +114,10 @@ public class GameWorld1 extends World
         addObject(numKeys, 520, 45);
         
         //Add the ladder
-        LadderDown ladderDown = new LadderDown();
-        addObject(ladderDown,600-4*tileSize-halfSize,400-5*tileSize-9);
-        LadderUp ladderUp = new LadderUp();
-        addObject(ladderUp,ladderDown.getX(),ladderDown.getY()-54);
+        Ladder ladderDown = new Ladder(2);
+        addObject(ladderDown,20*tileSize+halfSize,400-5*tileSize-halfSize);
+        Ladder ladderUp = new Ladder(0);
+        addObject(ladderUp,ladderDown.getX(),ladderDown.getY()-48);
 
         //Add the trap        
         addObject(new Trap(),11*tileSize+halfSize,400-3*tileSize-9);
@@ -130,11 +130,14 @@ public class GameWorld1 extends World
         addObject(new HintCharacter(),16*tileSize+halfSize,400-3*tileSize-halfSize);
 
         //Add the flying cloud
-        addObject(new Fly(),17*tileSize+halfSize,200);
+        addObject(new Cloud(0),7*tileSize+halfSize,400-8*tileSize-halfSize);
+        addObject(new Cloud(1),8*tileSize+halfSize,400-8*tileSize-halfSize);
+        addObject(new Cloud(2),9*tileSize+halfSize,400-8*tileSize-halfSize);
+        addObject(new Jumper(),8*tileSize+halfSize,400-9*tileSize-halfSize);
         
         //Add the box
         Box box1 = new Box();
-        addObject(box1,8*tileSize+halfSize,400-8*tileSize-halfSize);
+        addObject(box1,17*tileSize+halfSize,400-8*tileSize-halfSize);
         
         //Add the switch
         Switch switch1 = new Switch();
