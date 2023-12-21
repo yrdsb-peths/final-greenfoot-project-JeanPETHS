@@ -17,8 +17,8 @@ public class GameWorld1 extends World
             {11,16,10,16,11,10,17,11,11,11,11,11,10,4,5,5,6,10,10,10,10,16,11,17,10},
             {10,16,10,1,2,2,3,11,15,2,2,2,14,11,11,15,5,5,5,14,10,16,11,17,11},
             {11,1,2,3,10,11,10,15,3,-1,-1,-1,1,2,5,6,-1,-1,-1,7,14,7,8,9,11},
-            {11,10,10,10,11,10,15,3,-1,-1,-1,-1,-1,31,-1,-1,-1,-1,-1,-1,16,10,10,10,10},
-            {2,2,14,10,10,10,17,-1,-1,-1,37,-1,-1,32,-1,-1,-1,-1,38,-1,7,14,11,10,10},
+            {11,10,10,10,11,10,15,3,-1,-1,-1,-1,-1,31,-1,-1,-1,-1,-1,-1,7,14,10,10,10},
+            {2,2,14,10,10,10,17,-1,-1,-1,37,-1,-1,32,-1,-1,-1,-1,38,-1,-1,16,11,10,10},
             {-1,-1,1,2,2,2,3,-1,-1,-1,-1,-1,36,35,30,29,-1,-1,-1,-1,-1,16,10,15,8},
             {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,32,-1,-1,-1,-1,-1,-1,-1,7,8,9,-1},
             {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,27,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
@@ -96,6 +96,7 @@ public class GameWorld1 extends World
         //Add the character
         GreenCharacter greenCharacter = new GreenCharacter();
         addObject(greenCharacter,5*tileSize+halfSize,400-7*tileSize-halfSize);
+        setPaintOrder(Switch.class, GreenCharacter.class);
         
         //Add the health value
         Label hp = new Label("HP : ", 20);
@@ -113,10 +114,10 @@ public class GameWorld1 extends World
         addObject(numKeys, 520, 45);
         
         //Add the ladder
-        LadderDown ladderDown = new LadderDown();
-        addObject(ladderDown,600-4*tileSize-halfSize,400-6*tileSize-9);
-        LadderUp ladderUp = new LadderUp();
-        addObject(ladderUp,ladderDown.getX(),ladderDown.getY()-54);
+        Ladder ladderDown = new Ladder(2);
+        addObject(ladderDown,20*tileSize+halfSize,400-5*tileSize-halfSize);
+        Ladder ladderUp = new Ladder(0);
+        addObject(ladderUp,ladderDown.getX(),ladderDown.getY()-48);
 
         //Add the trap        
         addObject(new Trap(),11*tileSize+halfSize,400-3*tileSize-9);
@@ -129,11 +130,14 @@ public class GameWorld1 extends World
         addObject(new HintCharacter(),16*tileSize+halfSize,400-3*tileSize-halfSize);
 
         //Add the flying cloud
-        addObject(new Fly(),17*tileSize+halfSize,200);
+        addObject(new Cloud(0),7*tileSize+halfSize,400-8*tileSize-halfSize);
+        addObject(new Cloud(1),8*tileSize+halfSize,400-8*tileSize-halfSize);
+        addObject(new Cloud(2),9*tileSize+halfSize,400-8*tileSize-halfSize);
+        addObject(new Jumper(),8*tileSize+halfSize,400-9*tileSize-halfSize);
         
         //Add the box
         Box box1 = new Box();
-        addObject(box1,8*tileSize+halfSize,400-8*tileSize-halfSize);
+        addObject(box1,17*tileSize+halfSize,400-8*tileSize-halfSize);
         
         //Add the switch
         Switch switch1 = new Switch();
