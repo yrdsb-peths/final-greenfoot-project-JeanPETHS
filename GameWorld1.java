@@ -191,4 +191,16 @@ public class GameWorld1 extends World
         //Update the label
         numKeys.setValue(numOfKeys);
     }
+    
+    /**
+     * Update the number of diamonds that the user got, and update the label.
+     */
+    public void updateDiamond(int changeInDiamond)
+    {
+        //Update the number of keys remained
+        numOfDiamonds += changeInDiamond;
+        
+        //Update the label
+        numDiamonds.setValue(numOfDiamonds);
+    }
 }

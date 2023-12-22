@@ -122,6 +122,13 @@ public class GreenCharacter extends Actor
             removeTouching(Key.class);
         }
         
+        //If touch the diamond, take it, and remove it.
+        if(isTouching(Diamond.class))
+        {
+            gameWorld1.updateDiamond(1);
+            removeTouching(Diamond.class);
+        }
+        
         //If touches the flag, user wins & game over.
         if(isTouching(Flag.class))
         {
