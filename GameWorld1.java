@@ -34,6 +34,10 @@ public class GameWorld1 extends World
     private int numOfKeys = 0;
     private Label numKeys;
     
+    //Store diamond data
+    private int numOfDiamonds = 0;
+    private Label numDiamonds;
+    
     Label gameOver;
     
     public GameWorld1(StartWorld startWorld)
@@ -112,6 +116,11 @@ public class GameWorld1 extends World
         getBackground().drawImage(new GreenfootImage("key.png"), 493, 37);
         numKeys = new Label(numOfKeys, 20);
         addObject(numKeys, 520, 45);
+        
+        //Add the diamond label
+        getBackground().drawImage(new GreenfootImage("diamond.png"), 543, 36);
+        numDiamonds = new Label(numOfDiamonds, 20);
+        addObject(numDiamonds, 570, 45);
         
         //Add the ladder
         Ladder ladderDown = new Ladder(2);
