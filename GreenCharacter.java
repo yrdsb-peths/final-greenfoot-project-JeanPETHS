@@ -26,8 +26,8 @@ public class GreenCharacter extends Actor
     //Data to make it fall or jump
     boolean isFalling = false;
     boolean isJumping = false;
-    static final private int initialSpeed = 12;
-    static final private int gravity = 2;
+    final int initialSpeed = 12;
+    int gravity = 2;
     int velocity = 0; 
     
     //Store the y value of the nearest tile under the character
@@ -220,6 +220,15 @@ public class GreenCharacter extends Actor
             }
             return false;
         }
+    }
+    
+    /**
+     * Reset all the speed variables.
+     */
+    public void resetSpeed()
+    {
+        gravity = 2;
+        velocity = 0;
     }
     
     /**
