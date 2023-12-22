@@ -133,7 +133,10 @@ public class GameWorld1 extends World
         addObject(new Cloud(0),7*tileSize+halfSize,400-8*tileSize-halfSize);
         addObject(new Cloud(1),8*tileSize+halfSize,400-8*tileSize-halfSize);
         addObject(new Cloud(2),9*tileSize+halfSize,400-8*tileSize-halfSize);
-        addObject(new Jumper(),8*tileSize+halfSize,400-9*tileSize-halfSize);
+        Jumper jumper = new Jumper();
+        addObject(jumper,8*tileSize+halfSize,400-9*tileSize-halfSize);
+        //Connect the jumper with the green character
+        jumper.greenCharacter = greenCharacter;
         
         //Add the box
         Box box1 = new Box();
