@@ -22,6 +22,8 @@ public class GreenCharacter extends Actor
     
     //Check the direction it is facing
     boolean isFacingRight = true;
+    
+    Ladder ladder;
         
     //Data to make it fall or jump
     boolean isFalling = false;
@@ -39,6 +41,8 @@ public class GreenCharacter extends Actor
     //For its animation
     SimpleTimer timer2 = new SimpleTimer();
     int imageIndex = 0;
+    
+    HintCharacter currentHintCharacter;
         
     public void act()
     {
@@ -75,13 +79,18 @@ public class GreenCharacter extends Actor
             setImage(standing);
         }
         
+        if(isTouching(Ladder.class))
+        {
+            ladder = (Ladder) getOneIntersectingObject(Ladder.class);
+        }
+        
         //Check if the character can jump or fall
-        if(Greenfoot.isKeyDown("w") && isOnGround() && !isFalling && !isJumping)
+        if(Greenfoot.isKeyDown("w") && isOnGround() && !isFalling && !isJumping && !isTouching(Ladder.class))
         {
             isJumping = true;
             velocity = initialSpeed;
         }
-        else if(!isOnGround() && !isJumping)
+        else if(!isOnGround() && !isJumping && !(isTouching(Ladder.class) && ladder.isUp))
         {
             isFalling = true;
         }
@@ -115,11 +124,29 @@ public class GreenCharacter extends Actor
             isFirstTouchingTrap = true;
         }
         
+        //If touch a hint character, a specific hint will pop up.
+        if(isOnHintCharacter())
+        {
+            currentHintCharacter.turnOnHints();
+        }
+        else if(currentHintCharacter!=null)
+        {
+            //If leave the hint character, turn off the hint.
+            currentHintCharacter.turnOffHints();
+        }
+        
         //If touch the key, take it, and remove it.
         if(isTouching(Key.class))
         {
             gameWorld1.updateKey(1);
             removeTouching(Key.class);
+        }
+        
+        //If touch the diamond, take it, and remove it.
+        if(isTouching(Diamond.class))
+        {
+            gameWorld1.updateDiamond(1);
+            removeTouching(Diamond.class);
         }
         
         //If touches the flag, user wins & game over.
@@ -272,5 +299,22 @@ public class GreenCharacter extends Actor
             isJumping = false;
             setLocation(getX(), yBelow-24);
         }
+    }
+    
+    /**
+     * Check if the character is on the hint character.
+     */
+    public boolean isOnHintCharacter()
+    {   
+        //If there is a hint character under the character from left 9 to right 9 cells, return true.
+        for(int i=-9; i<=9; i++)
+        {
+            if(getOneObjectAtOffset(i, 12, HintCharacter.class)!=null)
+            {
+                currentHintCharacter = (HintCharacter) getOneObjectAtOffset(i, 12, HintCharacter.class);
+                return true;
+            }
+        }
+        return false;
     }
 }

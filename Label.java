@@ -18,7 +18,7 @@ public class Label extends Actor
     private Color lineColor = Color.BLACK;
     private Color fillColor = Color.WHITE;
     
-    private static final Color transparent = new Color(0,0,0,0);
+    public static final Color transparent = new Color(0,0,0,0);
 
     
     /**
@@ -47,6 +47,18 @@ public class Label extends Actor
         this.value = value;
         this.fontSize = fontSize;
         this.fillColor = fillColor;
+        updateImage();
+    }
+    
+    /**
+     * Create a new label, initialise it with the needed text, font size, fill color, and line color.
+     */
+    public Label(String value, int fontSize, Color fillColor, Color lineColor)
+    {
+        this.value = value;
+        this.fontSize = fontSize;
+        this.fillColor = fillColor;
+        this.lineColor = lineColor;
         updateImage();
     }
 

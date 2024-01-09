@@ -23,16 +23,23 @@ public class GameWorld1 extends World
             {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,32,-1,-1,-1,-1,-1,-1,-1,7,8,9,-1},
             {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,27,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
             {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,24,28,26,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-            {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,24,25,26,22,24,25,26,-1,-1,-1,-1,-1,-1,-1,-1},
-            {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,18,19,20,22,21,22,23,-1,-1,-1,-1,-1,-1,-1,-1},
-            {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,18,22,22,18,19,20,-1,-1,-1,-1,-1,-1,-1,-1},
-            {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,18,19,20,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+            {39,39,40,-1,-1,-1,-1,-1,-1,-1,24,25,26,22,24,25,26,-1,-1,-1,-1,-1,-1,-1,-1},
+            {10,11,17,-1,-1,-1,-1,-1,-1,-1,18,19,20,22,21,22,23,-1,-1,-1,-1,-1,-1,-1,-1},
+            {10,10,12,39,39,40,-1,-1,-1,-1,-1,18,22,22,18,19,20,-1,-1,-1,-1,-1,-1,-1,-1},
+            {39,40,10,10,11,12,40,-1,-1,-1,-1,-1,18,19,20,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+            {10,17,10,10,10,11,17,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+            {10,17,11,10,10,10,17,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+            {10,17,10,10,10,10,17,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1}
         };
 
     //Store key data
     boolean hasKey = false;
     private int numOfKeys = 0;
     private Label numKeys;
+    
+    //Store diamond data
+    private int numOfDiamonds = 0;
+    private Label numDiamonds;
     
     Label gameOver;
     
@@ -86,9 +93,6 @@ public class GameWorld1 extends World
      */
     private void createElements()
     {
-        //Add the huge rock at the top left corner
-        addObject(new Rock1(),90,80);
-
         //Add the place where the character starts
         RightArrow rightArrow = new RightArrow();
         addObject(rightArrow,6*tileSize+halfSize,400-7*tileSize-9);
@@ -113,15 +117,20 @@ public class GameWorld1 extends World
         numKeys = new Label(numOfKeys, 20);
         addObject(numKeys, 520, 45);
         
+        //Add the diamond label
+        getBackground().drawImage(new GreenfootImage("diamond.png"), 543, 36);
+        numDiamonds = new Label(numOfDiamonds, 20);
+        addObject(numDiamonds, 570, 45);
+        
         //Add the ladder
         Ladder ladderDown = new Ladder(2);
         addObject(ladderDown,20*tileSize+halfSize,400-5*tileSize-halfSize);
         Ladder ladderUp = new Ladder(0);
         addObject(ladderUp,ladderDown.getX(),ladderDown.getY()-48);
 
-        //Add the trap        
+        //Add the trap
+        addObject(new Trap(),3*tileSize+halfSize,400-7*tileSize-9);
         addObject(new Trap(),11*tileSize+halfSize,400-3*tileSize-9);
-        addObject(new Trap(),14*tileSize+halfSize,400-4*tileSize-9);
         addObject(new Trap(),18*tileSize+halfSize,400-3*tileSize-9);
 
         //Add the hint characters
@@ -181,5 +190,17 @@ public class GameWorld1 extends World
         
         //Update the label
         numKeys.setValue(numOfKeys);
+    }
+    
+    /**
+     * Update the number of diamonds that the user got, and update the label.
+     */
+    public void updateDiamond(int changeInDiamond)
+    {
+        //Update the number of keys remained
+        numOfDiamonds += changeInDiamond;
+        
+        //Update the label
+        numDiamonds.setValue(numOfDiamonds);
     }
 }
