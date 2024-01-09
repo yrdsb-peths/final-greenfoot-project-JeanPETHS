@@ -41,6 +41,8 @@ public class GreenCharacter extends Actor
     //For its animation
     SimpleTimer timer2 = new SimpleTimer();
     int imageIndex = 0;
+    
+    HintCharacter currentHintCharacter;
         
     public void act()
     {
@@ -120,6 +122,17 @@ public class GreenCharacter extends Actor
         if(!isTouching(Trap.class))
         {
             isFirstTouchingTrap = true;
+        }
+        
+        //If touch a hint character, a specific hint will pop up.
+        if(isOnHintCharacter())
+        {
+            currentHintCharacter.turnOnHints();
+        }
+        else if(currentHintCharacter!=null)
+        {
+            //If leave the hint character, turn off the hint.
+            currentHintCharacter.turnOffHints();
         }
         
         //If touch the key, take it, and remove it.
@@ -286,5 +299,22 @@ public class GreenCharacter extends Actor
             isJumping = false;
             setLocation(getX(), yBelow-24);
         }
+    }
+    
+    /**
+     * Check if the character is on the hint character.
+     */
+    public boolean isOnHintCharacter()
+    {   
+        //If there is a hint character under the character from left 9 to right 9 cells, return true.
+        for(int i=-9; i<=9; i++)
+        {
+            if(getOneObjectAtOffset(i, 12, HintCharacter.class)!=null)
+            {
+                currentHintCharacter = (HintCharacter) getOneObjectAtOffset(i, 12, HintCharacter.class);
+                return true;
+            }
+        }
+        return false;
     }
 }

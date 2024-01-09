@@ -57,4 +57,21 @@ public class HintCharacter extends Tile
         setImage(current);
         hintIndex = (hintIndex + 1) % 3;
     }
+    
+    /**
+     * Make the hint label appear by setting the fill color black.
+     */
+    public void turnOnHints()
+    {
+        this.hint.setFillColor(Color.BLACK);
+    }
+    
+    /**
+     * Make the hint label disappear by setting the fill color transparent.
+     */
+    public void turnOffHints()
+    {
+        this.hint.setFillColor(Label.transparent);
+    }
+
 }
