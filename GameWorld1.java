@@ -128,9 +128,9 @@ public class GameWorld1 extends World
         Ladder ladderUp = new Ladder(0);
         addObject(ladderUp,ladderDown.getX(),ladderDown.getY()-48);
 
-        //Add the trap        
+        //Add the trap
+        addObject(new Trap(),3*tileSize+halfSize,400-7*tileSize-9);
         addObject(new Trap(),11*tileSize+halfSize,400-3*tileSize-9);
-        addObject(new Trap(),14*tileSize+halfSize,400-4*tileSize-9);
         addObject(new Trap(),18*tileSize+halfSize,400-3*tileSize-9);
 
         //Add the hint characters

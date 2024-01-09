@@ -8,6 +8,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Ladder extends Actor
 {
+    SimpleTimer timer = new SimpleTimer();
+    GreenCharacter greenCharacter;
+    boolean isUp = false;
+    
     /**
      * Set the ladder image based on the type that gets passed into this constructor.
      */
@@ -20,6 +24,33 @@ public class Ladder extends Actor
     
     public void act()
     {
-        // Add your action code here.
+        if(isTouching(GreenCharacter.class))
+        {
+            if(Greenfoot.isKeyDown("w") && !isUp)
+            {
+                isUp = true;
+            }
+            if(isUp)
+            {
+                up();
+            }
+        }
+        else
+        {
+            isUp = false;
+        }
+    }
+    
+    public void up()
+    {
+        if(timer.millisElapsed() < 40)
+        {
+            return;
+        }
+        
+        timer.mark();
+        
+        greenCharacter = (GreenCharacter)getOneIntersectingObject(GreenCharacter.class);
+        greenCharacter.setLocation(greenCharacter.getX(), greenCharacter.getY() - 1);
     }
 }

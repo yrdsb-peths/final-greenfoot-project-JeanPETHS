@@ -22,6 +22,8 @@ public class GreenCharacter extends Actor
     
     //Check the direction it is facing
     boolean isFacingRight = true;
+    
+    Ladder ladder;
         
     //Data to make it fall or jump
     boolean isFalling = false;
@@ -75,13 +77,18 @@ public class GreenCharacter extends Actor
             setImage(standing);
         }
         
+        if(isTouching(Ladder.class))
+        {
+            ladder = (Ladder) getOneIntersectingObject(Ladder.class);
+        }
+        
         //Check if the character can jump or fall
-        if(Greenfoot.isKeyDown("w") && isOnGround() && !isFalling && !isJumping)
+        if(Greenfoot.isKeyDown("w") && isOnGround() && !isFalling && !isJumping && !isTouching(Ladder.class))
         {
             isJumping = true;
             velocity = initialSpeed;
         }
-        else if(!isOnGround() && !isJumping)
+        else if(!isOnGround() && !isJumping && !(isTouching(Ladder.class) && ladder.isUp))
         {
             isFalling = true;
         }
