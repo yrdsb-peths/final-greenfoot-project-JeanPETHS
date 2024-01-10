@@ -19,6 +19,8 @@ public class GreenCharacter extends Actor
     SimpleTimer timer1 = new SimpleTimer();
     //If is the first time it touches the trap, reduce HP immediately.
     boolean isFirstTouchingTrap = true;
+    //If hp=0 and there is still diamonds, revive the character.
+    int diamonds = 0;
     
     //Check the direction it is facing
     boolean isFacingRight = true;
@@ -115,7 +117,21 @@ public class GreenCharacter extends Actor
             HealthValue.setHealthValue(hp);
             if(hp==0)
             {
-                gameWorld1.gameOver();
+                //If there is diamonds left, use them.
+                if(diamonds>0)
+                {
+                    //Reset HP
+                    hp = 6;
+                    HealthValue.resetHealthValue();
+                    //Reduce the number of diamonds left
+                    diamonds--;
+                    gameWorld1.updateDiamond(-1);
+                }
+                else 
+                {
+                    //If not, game over.
+                    gameWorld1.gameOver();
+                }
             }
         }
         //If leave the trap, next touch counts as the first touch.
@@ -145,6 +161,7 @@ public class GreenCharacter extends Actor
         //If touch the diamond, take it, and remove it.
         if(isTouching(Diamond.class))
         {
+            diamonds++;
             gameWorld1.updateDiamond(1);
             removeTouching(Diamond.class);
         }
