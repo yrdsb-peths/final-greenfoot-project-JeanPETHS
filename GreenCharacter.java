@@ -115,6 +115,8 @@ public class GreenCharacter extends Actor
             hp--;
             //Set the image of the health value based on HP
             HealthValue.setHealthValue(hp);
+            //Update hp variable in the world
+            gameWorld1.hp = this.hp;
             if(hp==0)
             {
                 //If there is diamonds left, use them.
@@ -167,7 +169,7 @@ public class GreenCharacter extends Actor
         }
         
         //If touches the flag, user wins & game over.
-        if(isTouching(Flag.class))
+        if(!gameWorld1.gameIsOver && isTouching(Flag.class))
         {
             gameWorld1.gameOver();
         }

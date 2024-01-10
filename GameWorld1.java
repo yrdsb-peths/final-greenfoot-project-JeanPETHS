@@ -31,6 +31,9 @@ public class GameWorld1 extends World
             {10,17,11,10,10,10,17,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
             {10,17,10,10,10,10,17,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1}
         };
+        
+    //Store hp data
+    int hp;
 
     //Store key data
     boolean hasKey = false;
@@ -43,7 +46,7 @@ public class GameWorld1 extends World
     
     Label gameOver;
     SimpleTimer timer;
-    double timeRounded;
+    double timeInSecs;
     Label timeUsed;
     
     public GameWorld1(StartWorld startWorld)
@@ -73,23 +76,28 @@ public class GameWorld1 extends World
         gameIsOver = true;
         
         //Game over label & show
-        gameOver = new Label("Game Over", 40, Color.BLACK);
-        addObject(gameOver, getWidth()/2, getHeight()/2-18);
+        gameOver = new Label("Game Over", 40, Color.BLACK, null);
+        addObject(gameOver, getWidth()/2, getHeight()/2-40);
         
         //Take the time data & show
-        double timeInMins = timer.millisElapsed()/1000.0/60.0;
-        timeRounded = (int)(timeInMins * 10) / 10.0;
-        timeUsed = new Label(timeRounded + "mins", 30, Color.BLACK);
+        timeInSecs = timer.millisElapsed()/1000.0;
+        double timeInMins = timeInSecs/60.0;
+        double timeRounded = (int)(timeInMins * 10) / 10.0;
+        timeUsed = new Label(timeRounded + "mins", 30, Color.BLACK, null);
         addObject(timeUsed, gameOver.getX()-26, gameOver.getY()+40);
         timer.mark();
         
         //Take the diamond data & show
-        Label numDiamonds = new Label(numOfDiamonds+"x", 30, Color.BLACK);
+        Label numDiamonds = new Label(numOfDiamonds+"x", 30, Color.BLACK, null);
         addObject(numDiamonds, timeUsed.getX()+68, timeUsed.getY());
         //Add the diamond image & show
         Label diamondLabel = new Label("", 30);
         diamondLabel.setImage(new GreenfootImage("diamond.png"));
         addObject(diamondLabel, numDiamonds.getX()+22, numDiamonds.getY()+2);
+        
+        //Take the total score & show
+        Label totalScore = new Label("Your Score: " + getTotalScore(), 40, Color.BLACK, null);
+        addObject(totalScore, gameOver.getX(), timeUsed.getY()+40);
     }
 
     /**
@@ -124,7 +132,7 @@ public class GameWorld1 extends World
         //Add the character
         GreenCharacter greenCharacter = new GreenCharacter();
         addObject(greenCharacter,5*tileSize+halfSize,400-7*tileSize-halfSize);
-        setPaintOrder(Switch.class, GreenCharacter.class);
+        setPaintOrder(Label.class, Switch.class, GreenCharacter.class);
         
         //Add the health value
         Label hp = new Label("HP : ", 20);
@@ -226,5 +234,20 @@ public class GameWorld1 extends World
         
         //Update the label
         numDiamonds.setValue(numOfDiamonds);
+    }
+    
+    /**
+     * Calculate the total score for the user.
+     */
+    public int getTotalScore()
+    {
+        int total = 0;
+        //Add score based on time used
+        total+=(int)(5000.0 - (timeInSecs-20.0)*40.0);
+        //Add score based on HP left
+        total+=hp*10;
+        //Add score based on number of diamonds left
+        total+=numOfDiamonds*60;
+        return total<0 ? 0 : total;
     }
 }
