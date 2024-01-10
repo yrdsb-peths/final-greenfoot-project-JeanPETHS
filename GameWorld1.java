@@ -31,7 +31,10 @@ public class GameWorld1 extends World
             {10,17,11,10,10,10,17,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
             {10,17,10,10,10,10,17,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1}
         };
-        
+    
+    Label quit;
+    Label instructions;
+    
     //Store hp data
     int hp;
 
@@ -63,7 +66,15 @@ public class GameWorld1 extends World
         createElements();
 
         //Quit label:
+        createColoredImage(50, 20, new Color(254,231,170), 30, 380);
+        quit = new Label("\u2190quit", 20, Color.BLACK, null);
+        addObject(quit, 30, 380);
+        
         //instructions Label:
+        createColoredImage(110, 20, new Color(254,231,170), 540, 380);
+        instructions = new Label("instructions\u2192", 20, Color.BLACK, null);
+        addObject(instructions, 540, 380);
+    }
         
     
     /**
