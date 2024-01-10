@@ -75,6 +75,14 @@ public class GameWorld1 extends World
     {
         gameIsOver = true;
         
+        //Draw a background image at the back with one color
+        GreenfootImage bgdImage = new GreenfootImage(300, 150);
+        bgdImage.setColor(new Color(233, 219, 232));
+        bgdImage.fill();
+        Label bgd = new Label("", 30);
+        bgd.setImage(bgdImage);
+        addObject(bgd, getWidth()/2, getHeight()/2);
+        
         //Game over label & show
         gameOver = new Label("Game Over", 40, Color.BLACK, null);
         addObject(gameOver, getWidth()/2, getHeight()/2-40);
