@@ -33,4 +33,15 @@ public class HealthValue extends Actor
         //Set the other heart to half or empty based on the value
         healthValue[value/2].setImage(new GreenfootImage("health" + (value-num*2) + ".png"));
     }
+    
+    /**
+     * Reset the heart image to full.
+     */
+    public static void resetHealthValue()
+    {
+        for(int i=0; i<3; i++)
+        {
+            healthValue[i].setImage(new GreenfootImage("health2.png"));
+        }
+    }
 }
