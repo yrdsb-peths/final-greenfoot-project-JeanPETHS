@@ -82,6 +82,14 @@ public class GameWorld1 extends World
         timeUsed = new Label(timeRounded + "mins", 30, Color.BLACK);
         addObject(timeUsed, gameOver.getX()-26, gameOver.getY()+40);
         timer.mark();
+        
+        //Take the diamond data & show
+        Label numDiamonds = new Label(numOfDiamonds+"x", 30, Color.BLACK);
+        addObject(numDiamonds, timeUsed.getX()+68, timeUsed.getY());
+        //Add the diamond image & show
+        Label diamondLabel = new Label("", 30);
+        diamondLabel.setImage(new GreenfootImage("diamond.png"));
+        addObject(diamondLabel, numDiamonds.getX()+22, numDiamonds.getY()+2);
     }
 
     /**
