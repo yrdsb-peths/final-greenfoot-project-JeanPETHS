@@ -42,11 +42,18 @@ public class GameWorld1 extends World
     private Label numDiamonds;
     
     Label gameOver;
+    SimpleTimer timer;
+    double timeRounded;
+    Label timeUsed;
     
     public GameWorld1(StartWorld startWorld)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(600, 400, 1, true); 
+        
+        //Start the timer
+        timer = new SimpleTimer();
+        timer.mark();
 
         //Create all things needed
         createGround();
@@ -64,8 +71,17 @@ public class GameWorld1 extends World
     public void gameOver()
     {
         gameIsOver = true;
-        gameOver = new Label("Game Over", 40);
-        addObject(gameOver, getWidth()/2, getHeight()/2);
+        
+        //Game over label & show
+        gameOver = new Label("Game Over", 40, Color.BLACK);
+        addObject(gameOver, getWidth()/2, getHeight()/2-18);
+        
+        //Take the time data & show
+        double timeInMins = timer.millisElapsed()/1000.0/60.0;
+        timeRounded = (int)(timeInMins * 10) / 10.0;
+        timeUsed = new Label(timeRounded + "mins", 30, Color.BLACK);
+        addObject(timeUsed, gameOver.getX()-26, gameOver.getY()+40);
+        timer.mark();
     }
 
     /**
