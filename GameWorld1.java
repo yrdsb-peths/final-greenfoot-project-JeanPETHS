@@ -65,6 +65,18 @@ public class GameWorld1 extends World
         //Quit label:
         //instructions Label:
         
+    
+    /**
+     * Draw a background image using only one color. Pass in width, height, color, x, and y value to draw.
+     */
+    public void createColoredImage(int width, int height, Color color, int x, int y)
+    {
+        GreenfootImage bgdImage = new GreenfootImage(width, height);
+        bgdImage.setColor(color);
+        bgdImage.fill();
+        Label bgd = new Label("", 0);
+        bgd.setImage(bgdImage);
+        addObject(bgd, x, y);
     }
     
     //<!--Developing Feature--!>
@@ -75,13 +87,8 @@ public class GameWorld1 extends World
     {
         gameIsOver = true;
         
-        //Draw a background image at the back with one color
-        GreenfootImage bgdImage = new GreenfootImage(300, 150);
-        bgdImage.setColor(new Color(233, 219, 232));
-        bgdImage.fill();
-        Label bgd = new Label("", 30);
-        bgd.setImage(bgdImage);
-        addObject(bgd, getWidth()/2, getHeight()/2);
+        //Draw a background image at the back using light purple color
+        createColoredImage(300, 150, new Color(233, 219, 232), getWidth()/2, getHeight()/2);
         
         //Game over label & show
         gameOver = new Label("Game Over", 40, Color.BLACK, null);

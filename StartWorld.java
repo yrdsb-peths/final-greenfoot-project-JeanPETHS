@@ -44,7 +44,6 @@ public class StartWorld extends World
     }
     
     public void act() {
-        
         //Animate the options while hovering on them
         if(Greenfoot.mouseMoved(instructions)) 
         {
