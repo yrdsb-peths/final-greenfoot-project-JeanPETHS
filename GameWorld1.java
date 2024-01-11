@@ -9,6 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class GameWorld1 extends World
 {
     boolean gameIsOver = false;
+    boolean win = false;
     
     final private int tileSize = 24;
     final private int halfSize = tileSize/2;
@@ -302,6 +303,12 @@ public class GameWorld1 extends World
      */
     public int getTotalScore()
     {
+        //If does not touch the flag (win), return score equals 0.
+        if(!win)
+        {
+            return 0;
+        }
+        
         int total = 0;
         //Add score based on time used
         total+=(int)(5000.0 - (timeInSecs-20.0)*40.0);

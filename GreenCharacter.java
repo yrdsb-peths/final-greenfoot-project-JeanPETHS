@@ -171,6 +171,7 @@ public class GreenCharacter extends Actor
         //If touches the flag, user wins & game over.
         if(!gameWorld1.gameIsOver && isTouching(Flag.class))
         {
+            gameWorld1.win = true;
             gameWorld1.gameOver();
         }
     }
