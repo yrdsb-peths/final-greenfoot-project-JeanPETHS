@@ -73,9 +73,44 @@ public class GameWorld1 extends World
         //instructions Label:
         createColoredImage(110, 20, new Color(254,231,170), 540, 380);
         instructions = new Label("instructions\u2192", 20, Color.BLACK, null);
-        addObject(instructions, 540, 380);
+        addObject(instructions, 541, 380);
     }
+    
+    public void act()
+    {
+        //Animate the options while hovering on them
+        if(Greenfoot.mouseMoved(quit)) 
+        {
+            hoverAnimation(quit, 22);
+        }
+        else if(Greenfoot.mouseMoved(instructions)) 
+        {
+            hoverAnimation(instructions, 22);
+        } 
         
+        //Return to normal if not hovering on them
+        if(Greenfoot.mouseMoved(null) && !Greenfoot.mouseMoved(quit) && !Greenfoot.mouseMoved(instructions)) 
+        {
+            hoverAnimation(quit, 20);
+            hoverAnimation(instructions, 20);
+        }
+        
+        //Go to each world if pressed
+        if(Greenfoot.mousePressed(quit))
+        {
+            StartWorld startWorld = new StartWorld();
+            Greenfoot.setWorld(startWorld);
+        }
+        if(Greenfoot.mousePressed(instructions))
+        {
+            Instructions instructions = new Instructions(this);
+            Greenfoot.setWorld(instructions);
+        }
+    }
+    
+    public void hoverAnimation(Label label, int fontSize) {
+        label.setFont(fontSize);
+    }
     
     /**
      * Draw a background image using only one color. Pass in width, height, color, x, and y value to draw.
