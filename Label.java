@@ -30,6 +30,14 @@ public class Label extends Actor
     }
     
     /**
+     * Create a new label, initialise it with the double value to be shown and the font size 
+     */
+    public Label(double value, int fontSize)
+    {
+        this(Double.toString(value), fontSize);
+    }
+    
+    /**
      * Create a new label, initialise it with the needed text and the font size 
      */
     public Label(String value, int fontSize)

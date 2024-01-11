@@ -31,6 +31,12 @@ public class GameWorld1 extends World
             {10,17,11,10,10,10,17,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
             {10,17,10,10,10,10,17,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1}
         };
+    
+    Label quit;
+    Label instructions;
+    
+    //Store hp data
+    int hp;
 
     //Store key data
     boolean hasKey = false;
@@ -42,19 +48,81 @@ public class GameWorld1 extends World
     private Label numDiamonds;
     
     Label gameOver;
+    SimpleTimer timer;
+    double timeInSecs;
+    Label timeUsed;
     
     public GameWorld1(StartWorld startWorld)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(600, 400, 1, true); 
+        
+        //Start the timer
+        timer = new SimpleTimer();
+        timer.mark();
 
         //Create all things needed
         createGround();
         createElements();
 
         //Quit label:
-        //instructions Label:
+        createColoredImage(50, 20, new Color(254,231,170), 30, 380);
+        quit = new Label("\u2190quit", 20, Color.BLACK, null);
+        addObject(quit, 30, 380);
         
+        //instructions Label:
+        createColoredImage(110, 20, new Color(254,231,170), 540, 380);
+        instructions = new Label("instructions\u2192", 20, Color.BLACK, null);
+        addObject(instructions, 541, 380);
+    }
+    
+    public void act()
+    {
+        //Animate the options while hovering on them
+        if(Greenfoot.mouseMoved(quit)) 
+        {
+            hoverAnimation(quit, 22);
+        }
+        else if(Greenfoot.mouseMoved(instructions)) 
+        {
+            hoverAnimation(instructions, 22);
+        } 
+        
+        //Return to normal if not hovering on them
+        if(Greenfoot.mouseMoved(null) && !Greenfoot.mouseMoved(quit) && !Greenfoot.mouseMoved(instructions)) 
+        {
+            hoverAnimation(quit, 20);
+            hoverAnimation(instructions, 20);
+        }
+        
+        //Go to each world if pressed
+        if(Greenfoot.mousePressed(quit))
+        {
+            StartWorld startWorld = new StartWorld();
+            Greenfoot.setWorld(startWorld);
+        }
+        if(Greenfoot.mousePressed(instructions))
+        {
+            Instructions instructions = new Instructions(this);
+            Greenfoot.setWorld(instructions);
+        }
+    }
+    
+    public void hoverAnimation(Label label, int fontSize) {
+        label.setFont(fontSize);
+    }
+    
+    /**
+     * Draw a background image using only one color. Pass in width, height, color, x, and y value to draw.
+     */
+    public void createColoredImage(int width, int height, Color color, int x, int y)
+    {
+        GreenfootImage bgdImage = new GreenfootImage(width, height);
+        bgdImage.setColor(color);
+        bgdImage.fill();
+        Label bgd = new Label("", 0);
+        bgd.setImage(bgdImage);
+        addObject(bgd, x, y);
     }
     
     //<!--Developing Feature--!>
@@ -64,8 +132,33 @@ public class GameWorld1 extends World
     public void gameOver()
     {
         gameIsOver = true;
-        gameOver = new Label("Game Over", 40);
-        addObject(gameOver, getWidth()/2, getHeight()/2);
+        
+        //Draw a background image at the back using light purple color
+        createColoredImage(300, 150, new Color(233, 219, 232), getWidth()/2, getHeight()/2);
+        
+        //Game over label & show
+        gameOver = new Label("Game Over", 40, Color.BLACK, null);
+        addObject(gameOver, getWidth()/2, getHeight()/2-40);
+        
+        //Take the time data & show
+        timeInSecs = timer.millisElapsed()/1000.0;
+        double timeInMins = timeInSecs/60.0;
+        double timeRounded = (int)(timeInMins * 10) / 10.0;
+        timeUsed = new Label(timeRounded + "mins", 30, Color.BLACK, null);
+        addObject(timeUsed, gameOver.getX()-26, gameOver.getY()+40);
+        timer.mark();
+        
+        //Take the diamond data & show
+        Label numDiamonds = new Label(numOfDiamonds+"x", 30, Color.BLACK, null);
+        addObject(numDiamonds, timeUsed.getX()+68, timeUsed.getY());
+        //Add the diamond image & show
+        Label diamondLabel = new Label("", 30);
+        diamondLabel.setImage(new GreenfootImage("diamond.png"));
+        addObject(diamondLabel, numDiamonds.getX()+22, numDiamonds.getY()+2);
+        
+        //Take the total score & show
+        Label totalScore = new Label("Your Score: " + getTotalScore(), 40, Color.BLACK, null);
+        addObject(totalScore, gameOver.getX(), timeUsed.getY()+40);
     }
 
     /**
@@ -100,7 +193,7 @@ public class GameWorld1 extends World
         //Add the character
         GreenCharacter greenCharacter = new GreenCharacter();
         addObject(greenCharacter,5*tileSize+halfSize,400-7*tileSize-halfSize);
-        setPaintOrder(Switch.class, GreenCharacter.class);
+        setPaintOrder(Label.class, Switch.class, GreenCharacter.class);
         
         //Add the health value
         Label hp = new Label("HP : ", 20);
@@ -202,5 +295,20 @@ public class GameWorld1 extends World
         
         //Update the label
         numDiamonds.setValue(numOfDiamonds);
+    }
+    
+    /**
+     * Calculate the total score for the user.
+     */
+    public int getTotalScore()
+    {
+        int total = 0;
+        //Add score based on time used
+        total+=(int)(5000.0 - (timeInSecs-20.0)*40.0);
+        //Add score based on HP left
+        total+=hp*10;
+        //Add score based on number of diamonds left
+        total+=numOfDiamonds*60;
+        return total<0 ? 0 : total;
     }
 }
