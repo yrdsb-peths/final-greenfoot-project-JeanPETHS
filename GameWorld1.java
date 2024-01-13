@@ -126,7 +126,20 @@ public class GameWorld1 extends World
         addObject(bgd, x, y);
     }
     
-    //<!--Developing Feature--!>
+    /**
+     * Draw a background image using only one color and return the label. Pass in width, height, color, x, and y value to draw.
+     */
+    public Label createColoredImage(int width, int height, Color color, int x, int y, boolean store)
+    {
+        GreenfootImage bgdImage = new GreenfootImage(width, height);
+        bgdImage.setColor(color);
+        bgdImage.fill();
+        Label bgd = new Label("", 0);
+        bgd.setImage(bgdImage);
+        addObject(bgd, x, y);
+        return bgd;
+    }
+    
     /**
      * To end the current game world.
      */
