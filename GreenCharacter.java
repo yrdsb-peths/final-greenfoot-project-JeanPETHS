@@ -190,6 +190,52 @@ public class GreenCharacter extends Actor
             gameWorld1.win = true;
             gameWorld1.gameOver();
         }
+        
+        if(waitingToRevive)
+        {
+            //Animate the options while hovering on them
+            if(Greenfoot.mouseMoved(yes)) 
+            {
+                gameWorld1.hoverAnimation(yes, 27);
+            }
+            else if(Greenfoot.mouseMoved(no)) 
+            {
+                gameWorld1.hoverAnimation(no, 27);
+            } 
+            
+            //Return to normal if not hovering on them
+            if(Greenfoot.mouseMoved(null) && !Greenfoot.mouseMoved(yes) && !Greenfoot.mouseMoved(no)) 
+            {
+                gameWorld1.hoverAnimation(yes, 25);
+                gameWorld1.hoverAnimation(no, 25);
+            }
+            
+            //Act based on user's choice
+            if(Greenfoot.mousePressed(yes))
+            {
+                //Reset HP
+                hp = 6;
+                HealthValue.resetHealthValue();
+                //Reduce the number of diamonds left
+                diamonds--;
+                gameWorld1.updateDiamond(-1);
+                waitingToRevive = false;
+                //Set character location
+                setLocation(5*24+12,400-7*24-12);
+                //Remove the query & yes & no
+                gameWorld1.removeObject(query);
+                gameWorld1.removeObject(queryImage);
+                gameWorld1.removeObject(yes);
+                gameWorld1.removeObject(yesImage);
+                gameWorld1.removeObject(no);
+                gameWorld1.removeObject(noImage);
+            }
+            else if(Greenfoot.mousePressed(no))
+            {
+                gameWorld1.gameOver();
+                waitingToRevive = false;
+            }
+        }
     }
     
     public void addedToWorld(World world)
