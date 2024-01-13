@@ -9,7 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Ladder extends Actor
 {
     SimpleTimer timer = new SimpleTimer();
-    GreenCharacter greenCharacter;
+    static GreenCharacter greenCharacter;
     boolean isUp = false;
     
     /**
@@ -30,14 +30,15 @@ public class Ladder extends Actor
             {
                 isUp = true;
             }
-            if(isUp)
-            {
-                up();
-            }
         }
         else
         {
             isUp = false;
+        }
+        
+        if(isUp)
+        {
+            up();
         }
     }
     
@@ -50,7 +51,6 @@ public class Ladder extends Actor
         
         timer.mark();
         
-        greenCharacter = (GreenCharacter)getOneIntersectingObject(GreenCharacter.class);
         greenCharacter.setLocation(greenCharacter.getX(), greenCharacter.getY() - 1);
     }
 }

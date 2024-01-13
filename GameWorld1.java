@@ -207,6 +207,7 @@ public class GameWorld1 extends World
         //Add the character
         GreenCharacter greenCharacter = new GreenCharacter();
         addObject(greenCharacter,5*tileSize+halfSize,400-7*tileSize-halfSize);
+        Ladder.greenCharacter = greenCharacter;
         setPaintOrder(Label.class, Switch.class, GreenCharacter.class);
         
         //Add the health value
