@@ -25,7 +25,9 @@ public class GreenCharacter extends Actor
     //Check the direction it is facing
     boolean isFacingRight = true;
     
-    Ladder ladder;
+    //Check if is climbing up
+    boolean isClimbingUp = false;
+    SimpleTimer climbTimer = new SimpleTimer();
         
     //Data to make it fall or jump
     boolean isFalling = false;
@@ -89,9 +91,27 @@ public class GreenCharacter extends Actor
             setImage(standing);
         }
         
+        //Make the character climb up the ladder
         if(isTouching(Ladder.class))
         {
-            ladder = (Ladder) getOneIntersectingObject(Ladder.class);
+            //User should hold the "w" key
+            if(Greenfoot.isKeyDown("w"))
+            {
+                isClimbingUp = true;
+            }
+            else
+            {
+                isClimbingUp = false;
+            }
+        }
+        else
+        {
+            isClimbingUp = false;
+        }
+        //Climb up
+        if(isClimbingUp)
+        {
+            climbUp();
         }
         
         //Check if the character can jump or fall
@@ -100,7 +120,7 @@ public class GreenCharacter extends Actor
             isJumping = true;
             velocity = initialSpeed;
         }
-        else if(!isOnGround() && !isJumping && !(isTouching(Ladder.class) && ladder.isUp))
+        else if(!isOnGround() && !isJumping && !isClimbingUp)
         {
             isFalling = true;
         }
@@ -338,6 +358,23 @@ public class GreenCharacter extends Actor
     {
         gravity = 2;
         velocity = 0;
+    }
+    
+    /**
+     * Climb up an object.
+     */
+    public void climbUp()
+    {
+        //If too short, do not climb up
+        if(climbTimer.millisElapsed() < 40)
+        {
+            return;
+        }
+        
+        climbTimer.mark();
+        
+        //Climb up by 1 unit at a time
+        setLocation(getX(), getY() - 1);
     }
     
     /**
