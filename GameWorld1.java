@@ -148,7 +148,7 @@ public class GameWorld1 extends World
         gameIsOver = true;
         
         //Draw a background image at the back using light purple color
-        createColoredImage(300, 150, new Color(233, 219, 232), getWidth()/2, getHeight()/2);
+        createColoredImage(320, 150, new Color(233, 219, 232), getWidth()/2, getHeight()/2);
         
         //Game over label & show
         gameOver = new Label("Game Over", 40, Color.BLACK, null);
@@ -171,8 +171,28 @@ public class GameWorld1 extends World
         addObject(diamondLabel, numDiamonds.getX()+22, numDiamonds.getY()+2);
         
         //Take the total score & show
-        Label totalScore = new Label("Your Score: " + getTotalScore(), 40, Color.BLACK, null);
-        addObject(totalScore, gameOver.getX(), timeUsed.getY()+40);
+        int score = getTotalScore();
+        Label totalScore = new Label("Your Score: " + score, 40, Color.BLACK, null);
+        addObject(totalScore, gameOver.getX()-14, timeUsed.getY()+40);
+        
+        //Show the medal beside the total score
+        Label medal = new Label("", 0);
+        GreenfootImage medalImage;
+        if(score>=4000)
+        {
+            medalImage = new GreenfootImage("medals/flatshadow_medal1.png");
+        }
+        else if(score>=3000)
+        {
+            medalImage = new GreenfootImage("medals/flatshadow_medal9.png");
+        }
+        else
+        {
+            medalImage = new GreenfootImage("medals/flatshadow_medal2.png");
+        }
+        medalImage.scale(20,40);
+        medal.setImage(medalImage);
+        addObject(medal, totalScore.getX()+totalScore.getImage().getWidth()/2+22, totalScore.getY());
     }
 
     /**
