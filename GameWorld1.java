@@ -178,6 +178,7 @@ public class GameWorld1 extends World
         //Show the medal beside the total score
         Label medal = new Label("", 0);
         GreenfootImage medalImage;
+        //Set medal image based on total score
         if(score>=4000)
         {
             medalImage = new GreenfootImage("medals/flatshadow_medal1.png");
@@ -188,12 +189,14 @@ public class GameWorld1 extends World
         }
         else if(score==0)
         {
+            //If the user loses, give a snowman image
             medalImage = new GreenfootImage("snowman.png");
         }
         else
         {
             medalImage = new GreenfootImage("medals/flatshadow_medal2.png");
         }
+        //Scale the image
         if(score==0)
         {
             medalImage.scale(25,25);
@@ -202,7 +205,9 @@ public class GameWorld1 extends World
         {
             medalImage.scale(20,40);
         }
+        //Set the image to the label
         medal.setImage(medalImage);
+        //Add the label to the world
         addObject(medal, totalScore.getX()+totalScore.getImage().getWidth()/2+22, totalScore.getY());
     }
 
