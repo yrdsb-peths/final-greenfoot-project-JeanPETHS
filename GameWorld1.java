@@ -178,6 +178,7 @@ public class GameWorld1 extends World
         //Show the medal beside the total score
         Label medal = new Label("", 0);
         GreenfootImage medalImage;
+        //Set medal image based on total score
         if(score>=4000)
         {
             medalImage = new GreenfootImage("medals/flatshadow_medal1.png");
@@ -186,12 +187,27 @@ public class GameWorld1 extends World
         {
             medalImage = new GreenfootImage("medals/flatshadow_medal9.png");
         }
+        else if(score==0)
+        {
+            //If the user loses, give a snowman image
+            medalImage = new GreenfootImage("snowman.png");
+        }
         else
         {
             medalImage = new GreenfootImage("medals/flatshadow_medal2.png");
         }
-        medalImage.scale(20,40);
+        //Scale the image
+        if(score==0)
+        {
+            medalImage.scale(25,25);
+        }
+        else
+        {
+            medalImage.scale(20,40);
+        }
+        //Set the image to the label
         medal.setImage(medalImage);
+        //Add the label to the world
         addObject(medal, totalScore.getX()+totalScore.getImage().getWidth()/2+22, totalScore.getY());
     }
 
@@ -347,7 +363,7 @@ public class GameWorld1 extends World
         //Add score based on time used
         total+=(int)(5000.0 - (timeInSecs-20.0)*40.0);
         //Add score based on HP left
-        total+=hp*10;
+        total-=(6-hp)*10;
         //Add score based on number of diamonds left
         total+=numOfDiamonds*60;
         return total<0 ? 0 : total;
