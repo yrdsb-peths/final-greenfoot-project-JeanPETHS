@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * This is the switch class. Will open after using keys.
+ * This is the switch class. Will be on after using keys.
  * 
  * @author Jean 
  * @version Dec 2023

@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * This is the 1st-level world.
+ * This is the 1st game world.
  * 
  * @author Jean 
  * @version Dec 2023
@@ -237,8 +237,7 @@ public class GameWorld1 extends World
     private void createElements()
     {
         //Add the place where the character starts
-        RightArrow rightArrow = new RightArrow();
-        addObject(rightArrow,6*tileSize+halfSize,400-7*tileSize-9);
+        getBackground().drawImage(new GreenfootImage("right-arrow.png"),6*tileSize+halfSize-9,400-7*tileSize-18);
 
         //Add the character
         GreenCharacter greenCharacter = new GreenCharacter();
