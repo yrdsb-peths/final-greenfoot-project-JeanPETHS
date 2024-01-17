@@ -12,9 +12,9 @@ public class Tile extends Actor
     /**
      * Pass in the image index to create tiles.
      */
-    public Tile(int type)
+    public Tile(String prefix, int type)
     {
-        GreenfootImage temp = new GreenfootImage("mud" + type + ".png");
+        GreenfootImage temp = new GreenfootImage(prefix + type + ".png");
         temp.scale(24,24);
         setImage(temp);
     }

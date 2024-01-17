@@ -87,5 +87,4 @@ public class StartWorld extends World
     public void hoverAnimation(Label label, int fontSize) {
         label.setFont(fontSize);
     }
-
 }
