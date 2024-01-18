@@ -16,6 +16,7 @@ public class GameWorld extends World
     StartWorld startWorld;
     boolean gameIsOver = false;
     boolean win = false;
+    int timeCutOff;
     int goldMedalCutOff;
     
     //Store tile data
@@ -282,7 +283,7 @@ public class GameWorld extends World
         
         int total = 0;
         //Add score based on time used
-        total+=(int)(5000.0 - (timeInSecs-20.0)*40.0);
+        total+=(int)(5000.0 - (timeInSecs-timeCutOff)*40.0);
         //Add score based on HP left
         total-=(6-hp)*10;
         //Add score based on number of diamonds left
