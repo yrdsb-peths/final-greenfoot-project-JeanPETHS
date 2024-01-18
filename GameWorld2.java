@@ -36,6 +36,9 @@ public class GameWorld2 extends GameWorld
         createGround();
         createLabels();
         createElements();
+        
+        //Set the least score for getting a gold medal
+        goldMedalCutOff = 2500;
     }
     
     /**

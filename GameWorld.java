@@ -16,6 +16,7 @@ public class GameWorld extends World
     StartWorld startWorld;
     boolean gameIsOver = false;
     boolean win = false;
+    int goldMedalCutOff;
     
     //Store tile data
     final protected int tileSize = 24;
@@ -234,11 +235,11 @@ public class GameWorld extends World
         Label medal = new Label("", 0);
         GreenfootImage medalImage;
         //Set medal image based on total score
-        if(score>=4000)
+        if(score>=goldMedalCutOff)
         {
             medalImage = new GreenfootImage("medals/flatshadow_medal1.png");
         }
-        else if(score>=3000)
+        else if(score>=(goldMedalCutOff-1000))
         {
             medalImage = new GreenfootImage("medals/flatshadow_medal9.png");
         }
