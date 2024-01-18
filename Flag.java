@@ -8,7 +8,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Flag extends Actor
 {
-    GameWorld1 gameWorld1;
     SimpleTimer timer;
     int flagIndex = 0;
     

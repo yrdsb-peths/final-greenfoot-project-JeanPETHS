@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class HintCharacter extends Tile
 {
-    GameWorld1 gameWorld1;
+    GameWorld gameWorld;
     SimpleTimer timer = new SimpleTimer();
     int hintIndex = 0;
     
@@ -34,11 +34,11 @@ public class HintCharacter extends Tile
     
     public void addedToWorld(World world)
     {
-        if(world instanceof GameWorld1)
+        if(world instanceof GameWorld)
         {
-            gameWorld1 = (GameWorld1)world;
+            gameWorld = (GameWorld)world;
             //Add each transparent hint label to the world
-            gameWorld1.addObject(hint, this.getX()+15, this.getY()-48);
+            gameWorld.addObject(hint, this.getX()+15, this.getY()-48);
         }
     }
     

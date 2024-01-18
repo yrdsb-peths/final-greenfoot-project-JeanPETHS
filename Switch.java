@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Switch extends Actor
 {
-    GameWorld1 gameWorld1;
+    GameWorld gameWorld;
     
     //If this has already been opened
     boolean isOpened = false;
@@ -27,14 +27,14 @@ public class Switch extends Actor
     public void act()
     {
         //Check if the user want to and are able to open it
-        if(isTouching(GreenCharacter.class) && Greenfoot.isKeyDown("space") && !isOpened && gameWorld1.hasKey)
+        if(isTouching(GreenCharacter.class) && Greenfoot.isKeyDown("space") && !isOpened && gameWorld.hasKey)
         {
             //For animation
             isOpening = true;
             //If is opened, it cannot be opened again.
             isOpened = true;
             //1 key is used, update the number of keys in the world
-            gameWorld1.updateKey(-1);
+            gameWorld.updateKey(-1);
             //Unlock the box that is connected with this switch object
             boxConnected.unlock();
         }
@@ -48,9 +48,9 @@ public class Switch extends Actor
     
     public void addedToWorld(World world)
     {
-        if(world instanceof GameWorld1)
+        if(world instanceof GameWorld)
         {
-            gameWorld1 = (GameWorld1)world;
+            gameWorld = (GameWorld)world;
         }
     }
     
