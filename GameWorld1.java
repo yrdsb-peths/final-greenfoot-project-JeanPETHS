@@ -69,7 +69,9 @@ public class GameWorld1 extends GameWorld
 
         //Add the character
         GreenCharacter greenCharacter = new GreenCharacter();
-        addObject(greenCharacter,5*tileSize+halfSize,400-7*tileSize-halfSize);
+        startX = 5*tileSize+halfSize;
+        startY = 400-7*tileSize-halfSize;
+        addObject(greenCharacter,startX,startY);
         setPaintOrder(Label.class, Switch.class, GreenCharacter.class);
         
         //Add the ladder

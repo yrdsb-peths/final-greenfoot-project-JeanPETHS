@@ -21,6 +21,12 @@ public class GameWorld extends World
     final protected int tileSize = 24;
     final protected int halfSize = tileSize/2;
     
+    //Store the current green character
+    GreenCharacter currentCharacter;
+    //Its starting position
+    int startX;
+    int startY;
+    
     //Store hp data
     int hp;
 
