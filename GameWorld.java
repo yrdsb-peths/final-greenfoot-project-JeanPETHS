@@ -8,6 +8,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class GameWorld extends World
 {
+    //Sound effects
+    GreenfootSound winningSound = new GreenfootSound("winning.wav");
+    GreenfootSound losingSound = new GreenfootSound("losing.wav");
+    GreenfootSound bonusEarnedSound = new GreenfootSound("bonus-earned.wav");
+    
     StartWorld startWorld;
     boolean gameIsOver = false;
     boolean win = false;
@@ -244,10 +249,12 @@ public class GameWorld extends World
         if(score==0)
         {
             medalImage.scale(25,25);
+            losingSound.play();
         }
         else
         {
             medalImage.scale(20,40);
+            winningSound.play();
         }
         //Set the image to the label
         medal.setImage(medalImage);

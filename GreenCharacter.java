@@ -192,6 +192,7 @@ public class GreenCharacter extends Actor
         //If touch the key, take it, and remove it.
         if(isTouching(Key.class))
         {
+            gameWorld.bonusEarnedSound.play();
             gameWorld.updateKey(1);
             removeTouching(Key.class);
         }
@@ -199,6 +200,7 @@ public class GreenCharacter extends Actor
         //If touch the diamond, take it, and remove it.
         if(isTouching(Diamond.class))
         {
+            gameWorld.bonusEarnedSound.play();
             diamonds++;
             gameWorld.updateDiamond(1);
             removeTouching(Diamond.class);
