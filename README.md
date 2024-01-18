@@ -1,6 +1,8 @@
 # Final Greenfoot Project: Flag Seeker
 This is a 2D animated game, in which you need to explore the world and figure out by yourselves how to **get to the red flag to win**! You are now the green character and have an initial health value of 6 (half of a heart = 1)! There are two worlds which have different themes.
 
+*Arrays can be found as instance variables at the top of these classes: gameWorld1, gameWorld2, HealthValue, GlassBottle, HintCharacter.
+
 
 Game World 1:
 - Type: **Regular**
