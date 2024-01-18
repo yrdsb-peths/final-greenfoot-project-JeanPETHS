@@ -1,19 +1,12 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Trap here.
+ * This is the trap class. Once the character touches a trap, the hp will be reduced by 1 at a time.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Jean
+ * @version Jan 2024
  */
 public class Trap extends Actor
 {
-    /**
-     * Act - do whatever the Trap wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act()
-    {
-        // Add your action code here.
-    }
+    
 }

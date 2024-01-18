@@ -15,9 +15,9 @@ public class Cloud extends Tile
     /**
      * Set the cloud image based on the type that gets passed into this constructor.
      */
-    public Cloud(int type)
+    public Cloud(String prefix, int type)
     {
-        super(new GreenfootImage("cloud" + type + ".png"));
+        super(new GreenfootImage(prefix + type + ".png"));
     }
     
     public void act()

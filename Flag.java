@@ -1,14 +1,13 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Flag here.
+ * This is the flag class. Once the character touches the flag, the user wins.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Jean 
+ * @version Jan 2024
  */
 public class Flag extends Actor
 {
-    GameWorld1 gameWorld1;    
     SimpleTimer timer;
     int flagIndex = 0;
     
@@ -23,6 +22,9 @@ public class Flag extends Actor
         animateFlag();
     }
     
+    /**
+     * Animate the flag.
+     */
     public void animateFlag()
     {
         //If the time is too short, do not animate.
