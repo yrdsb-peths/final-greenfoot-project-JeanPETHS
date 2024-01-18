@@ -77,3 +77,7 @@ Keep safe, use the least amount of time, find diamonds, and reach the **flag**!!
 - Game World 2: this is all about exploring objects by yourself, this world is all about food! See what are some little *surprises* that would bring you something!
 - The maximum score you can get for Game World 1 is 5860, for game World 2 is 5920. However, it is impossible to get the full score because that is based on the time used being 0 secs! If you want to know what is your true level, watch out for the medals (and probably the snowman?)!
 - Be calm!
+
+## Credits
+- Assets: Kenney
+- Sounds: Mixkit
