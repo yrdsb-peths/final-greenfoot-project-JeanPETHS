@@ -75,7 +75,7 @@ Keep safe, use the least amount of time, find diamonds, and reach the **flag**!!
 - Step on traps & fall to the bottom of the world are the only 2 ways that will reduce health value (so far)!
 - Game World 1: fairly simple because you have hint characters.
 - Game World 2: this is all about exploring objects by yourself, this world is all about food! See what are some little *surprises* that would bring you something!
-- The maximum score you can get for Game World 1 is 5860, for game World 2 is 5920. However, it is impossible to get the full score because that is based on the time used being 0 secs! If you want to know what is your true level, watch out for the medals (and probably the snowman?)!
+- The maximum score you can get for Game World 1 is 5860, for game World 2 is 9120. However, it is impossible to get the full score because that is based on the time used being 0 secs! If you want to know what is your true level, watch out for the medals (and probably the snowman?)!
 - Be calm!
 
 ## Credits
