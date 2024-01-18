@@ -145,37 +145,52 @@ public class GreenCharacter extends Actor
             HealthValue.setHealthValue(hp);
             //Update hp variable in the world
             gameWorld.hp = this.hp;
-            
-            if(hp==0)
-            {
-                //If there is diamonds left, use them.
-                if(diamonds>0)
-                {
-                    waitingToRevive = true;
-                    
-                    query = new Label("You still have diamonds left.\nDo you want to use them?", 27, Color.BLACK, null);
-                    queryImage = gameWorld.createColoredImage(query.getImage().getWidth()+8, query.getImage().getHeight()+50, new Color(173, 216, 230), 300, 200, true);
-                    gameWorld.addObject(query, 300, 180);
-                    
-                    yes = new Label("Yes", 25, Color.BLACK, null);
-                    yesImage = gameWorld.createColoredImage(yes.getImage().getWidth()+5, yes.getImage().getHeight()+2, Color.WHITE, 250, 230, true);
-                    gameWorld.addObject(yes, 250, 230);
-                    
-                    no = new Label("No", 25, Color.BLACK, null);
-                    noImage = gameWorld.createColoredImage(no.getImage().getWidth()+5, no.getImage().getHeight()+2, Color.WHITE, 350, 230, true);
-                    gameWorld.addObject(no, 350, 230);
-                }
-                else 
-                {
-                    //If not, game over.
-                    gameWorld.gameOver(gameWorld);
-                }
-            }
         }
         //If leave the trap, next touch counts as the first touch.
         if(!isTouching(Trap.class))
         {
             isFirstTouchingTrap = true;
+        }
+        
+        //Recude HP If game is on & it falls to the bottom of the world.
+        if(isAtBottom())
+        {
+            setLocation(gameWorld.startX,gameWorld.startY);
+            if(!gameWorld.gameIsOver && !waitingToRevive)
+            {
+                hp-=2;
+                //Set the image of the health value based on HP
+                HealthValue.setHealthValue(hp);
+                //Update hp variable in the world
+                gameWorld.hp = this.hp;
+            }
+        }
+        
+        //Check if the user wants to use the diamond to revive.
+        if(!gameWorld.gameIsOver && !waitingToRevive && hp==0)
+        {
+            //Check if there is diamonds left.
+            if(diamonds>0)
+            {
+                waitingToRevive = true;
+                
+                query = new Label("You still have diamonds left.\nDo you want to use them?", 27, Color.BLACK, null);
+                queryImage = gameWorld.createColoredImage(query.getImage().getWidth()+8, query.getImage().getHeight()+50, new Color(173, 216, 230), 300, 200, true);
+                gameWorld.addObject(query, 300, 180);
+                
+                yes = new Label("Yes", 25, Color.BLACK, null);
+                yesImage = gameWorld.createColoredImage(yes.getImage().getWidth()+5, yes.getImage().getHeight()+2, Color.WHITE, 250, 230, true);
+                gameWorld.addObject(yes, 250, 230);
+                
+                no = new Label("No", 25, Color.BLACK, null);
+                noImage = gameWorld.createColoredImage(no.getImage().getWidth()+5, no.getImage().getHeight()+2, Color.WHITE, 350, 230, true);
+                gameWorld.addObject(no, 350, 230);
+            }
+            else 
+            {
+                //If not, game over.
+                gameWorld.gameOver(gameWorld);
+            }
         }
         
         //If touch a hint character, a specific hint will pop up.
@@ -243,7 +258,7 @@ public class GreenCharacter extends Actor
                 gameWorld.updateDiamond(-1);
                 waitingToRevive = false;
                 //Set character location
-                setLocation(5*24+12,400-7*24-12);
+                setLocation(gameWorld.startX,gameWorld.startY);
                 //Remove the query & yes & no
                 gameWorld.removeObject(query);
                 gameWorld.removeObject(queryImage);
@@ -351,6 +366,18 @@ public class GreenCharacter extends Actor
             }
             return false;
         }
+    }
+    
+    /**
+     * Check if the character falls to the bottom of the world.
+     */
+    public boolean isAtBottom()
+    {
+        if(getY()>=(gameWorld.getHeight()-5))
+        {
+            return true;
+        }
+        return false;
     }
     
     /**
