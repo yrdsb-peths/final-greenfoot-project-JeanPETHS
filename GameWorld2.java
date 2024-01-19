@@ -38,7 +38,7 @@ public class GameWorld2 extends GameWorld
         createElements();
         
         //Set the time cut off
-        timeCutOff = 100;
+        timeCutOff = 300;
         //Set the least score for getting a gold medal
         goldMedalCutOff = 5500;
     }
